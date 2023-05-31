@@ -12,6 +12,12 @@ public class Homework1 {
 		*/
 		Scanner sc = new Scanner(System.in);
 		
+		System.out.println("정수 2개와 문자(산술연산자)를 입력하세요.");
+		int num1 = sc.nextInt();
+		int num2 = sc.nextInt();
+		char ch = sc.next().charAt(0);
+		System.out.println("" + num1 + ch + num2);
+		
 	}
 
 }
