@@ -1,5 +1,7 @@
 package day2.homework;
 
+import java.util.Scanner;
+
 public class Homework2 {
 
 	public static void main(String[] args) {
@@ -14,6 +16,19 @@ public class Homework2 {
 		 * 1 / 2 = 0.5
 		 * 1 % 2 = 1  
 		 */
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("두 정수를 입력해주세요.");
+		int num1 = sc.nextInt();
+		int num2 = sc.nextInt();
+		
+		System.out.println(num1 + " + " + num2 + " = " + (num1+num2));
+		System.out.println(num1 + " - " + num2 + " = " + (num1-num2));
+		System.out.println(num1 + " * " + num2 + " = " + (num1*num2));
+		System.out.println(num1 + " / " + num2 + " = " + ((double)num1/num2));
+		System.out.println(num1 + " % " + num2 + " = " + (num1%num2));
+		
+		sc.close();
 
 	}
 
