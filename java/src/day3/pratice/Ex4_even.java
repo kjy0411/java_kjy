@@ -11,6 +11,7 @@ public class Ex4_even {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("정수를 입력하세요 : ");
 		int num = sc.nextInt();
+		
 		if(num % 2 == 0 ) {
 			System.out.println("정수 " + num + " 은 짝수입니다.");
 		}
