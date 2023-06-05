@@ -15,7 +15,6 @@ public class TriangleEx {
 		 * Able to create triangle.
 		 */
 		int num1, num2, num3;
-		boolean result;
 		
 		Scanner sc = new Scanner(System.in);
 		System.out.println("input 3 integer num : ");
@@ -23,11 +22,25 @@ public class TriangleEx {
 		num2 = sc.nextInt();
 		num3 = sc.nextInt();
 		
-		if(num1 < (num2 + num3) && (num2 < (num1 + num3)) && (num3 < (num1 + num2))) {
+		if((num1 < (num2 + num3)) && (num2 < (num1 + num3)) && (num3 < (num1 + num2))) {
 			System.out.println("Able to create triangle.");
 		}
 		else
 			System.out.println("Unable to create triangle.");
+		/*
+		if(num1 >= num2 + num3) {
+			System.out.println("Unable to create triangle.");
+		}
+		else if(num2 >= num1 + num3) {
+			System.out.println("Unable to create triangle.");
+		}
+		else if(num3 >= num1 + num2) {
+			System.out.println("Unable to create triangle.");
+		}
+		else {
+			System.out.println("Able to create triangle.");
+		}
+		*/
 		
 		
 		sc.close();

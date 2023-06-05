@@ -10,11 +10,11 @@ public class ScoreAverageEx {
 		double ave;
 		
 		Scanner sc = new Scanner(System.in);
-		System.out.println("input kor score");
+		System.out.println("input kor score : ");
 		kor = sc.nextInt();
-		System.out.println("input eng score");
+		System.out.println("input eng score : ");
 		eng = sc.nextInt();
-		System.out.println("input math score");
+		System.out.println("input math score : ");
 		math = sc.nextInt();
 		
 		ave = ((double)kor + eng + math)/3;
