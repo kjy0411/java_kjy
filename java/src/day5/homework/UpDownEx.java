@@ -19,20 +19,20 @@ public class UpDownEx {
 		
 		int min = 1, max = 100;
 		int random = (int)(Math.random() * (max - min + 1) + min);
-		int num;
-		int i = 0;
+		int i=0;
+		
 		while(i != random) {
 			System.out.println("input : ");
-			num = sc.nextInt();
-			if(num > random) {
+			i = sc.nextInt();
+			
+			if(i > random) {
 				System.out.println("Down!");
 			}
-			else if(num < random) {
+			else if(i < random) {
 				System.out.println("Up!");
 			}
 			else {
 				System.out.println("Good!");
-				i = num;
 			}
 		}
 		

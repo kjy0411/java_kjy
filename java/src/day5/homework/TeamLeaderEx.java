@@ -26,15 +26,15 @@ public class TeamLeaderEx {
 		sn = sc.nextInt();
 		
 		if(sn >= 1 && sn <= 30) {
-		result = sn % 3;
-		switch(result) {
-		case 1, 2:
-			System.out.println("Student number " + sn + " is a member of the team.");
+			result = sn % 3;
+			switch(result) {
+			case 1, 2:
+				System.out.println("Student number " + sn + " is a member of the team.");
 			break;
-		case 0:
-			System.out.println("Student number " + sn +" is the team leader");
-			break;
-		}
+			case 0:
+				System.out.println("Student number " + sn +" is the team leader");
+				break;
+			}
 		}
 		else {
 			System.out.println("Wrong student number!");
