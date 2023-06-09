@@ -19,18 +19,31 @@ public class MethodLCMEx {
 		num1 = sc.nextInt();
 		num2 = sc.nextInt();
 		
-		int lcm = lcm(num1, num2);
+		int lcm = lcm1(num1, num2);
 		System.out.println(num1 + " and " + num2 + " lcm : " + lcm);
 		
+		lcm = lcm2(num1, num2);
+		System.out.println(num1 + " and " + num2 + " lcm : " + lcm);
 		
 		sc.close();
+	}
+	public static int lcm1(int num1, int num2) {
+		for(int i = num1; i <= num1 * num2 ; i += num1) {
+			/* 공배수를 찾음. isMultiple은 배수를 찾는 메서드이고,
+			 * i가 num1의 배수들이기 때문에 i가 num2의 배수이면 num1과 num2의 공배수가 됨
+			 */
+			if(isMultiple(i, num2)) {
+				return i;
+			}
+		}
+		return num1 * num2;
 	}
 	/**두 정수가 주어지면 두 정수의 최소 공배수를 알려주는 메소드
 	 * 매개변수 : 두 정수 => int num1, int num2
 	 * 리턴타입 : 최소 공배수 => int
 	 * 메서드명 : lcm
 	 */
-	public static int lcm(int num1, int num2) {
+	public static int lcm2(int num1, int num2) {
 		return num1 * num2 / gcd(num1,num2);
 	}
 	/**두 정수가 주어지면 두 정수의 최대 공약수를 알려주는 메소드
