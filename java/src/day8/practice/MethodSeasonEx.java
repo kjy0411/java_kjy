@@ -45,7 +45,6 @@ public class MethodSeasonEx {
 	 * 메서드명 : getSeason
 	 */
 	public static String getSeason(int month) {
-
 		if(month == 3 || month == 4 || month == 5) {
 			return "Spring";
 		}else if(month == 6 || month == 7 || month == 8) {
