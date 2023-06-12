@@ -1,5 +1,7 @@
 package day8.homework;
 
+import java.util.Scanner;
+
 public class MethodPrintCharEx {
 
 	public static void main(String[] args) {
@@ -10,17 +12,28 @@ public class MethodPrintCharEx {
 		 * ?????
 		 * ^^^^^^^ 
 		 */
-		print();
+		char ch;
+		int num;
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("input (ex:^ 8) : ");
+		ch = sc.next().charAt(0);
+		num = sc.nextInt();
+		
+		print(ch,num);
+		
+		sc.close();
 	}
-	/**내용을 출력하는 메소드
-	 * 매개변수 : 없음
-	 * 리턴타입 : 없음
-	 * 메서드명 : print
+	/**문자와 개수가 주어지면 주어진 문자를 개수만큼 출력하는 메소드
+	 * 매개변수 : 문자와 개수 => char ch, int num
+	 * 리턴타입 : 없음 => void
+	 * 메서드명 : printChar
 	 */
-	public static void print() {
-		System.out.println("*****");
-		System.out.println("***");
-		System.out.println("?????");
-		System.out.println("^^^^^^^");	
+	public static void print(char ch, int num) {
+		for(int i = 1; i <= num; i++) {
+			System.out.print(ch);
+		}
+		System.out.println();
 	}
 }

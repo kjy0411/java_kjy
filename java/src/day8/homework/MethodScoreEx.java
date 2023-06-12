@@ -29,7 +29,7 @@ public class MethodScoreEx {
 		sc.close();
 	}
 	/**점수가 주어지면 점수에 맞는 학점을 알려주는 메소드
-	 * 매개변수 : 월 => int score
+	 * 매개변수 : 점수 => int score
 	 * 리턴타입 : 학점 => char
 	 * 메서드명 : grades
 	 */
