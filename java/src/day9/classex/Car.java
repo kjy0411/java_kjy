@@ -11,7 +11,6 @@ public class Car {	//자동차
 
 	//생성자
 	public Car(String _name, String _company, int _year) {
-		super();
 		name = _name;
 		company = _company;
 		year = _year;
