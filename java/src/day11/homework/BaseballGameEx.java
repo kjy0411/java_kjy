@@ -29,12 +29,10 @@ public class BaseballGameEx {
 		Scanner sc = new Scanner(System.in);
 		int arr1[] = new int[3];
 		int arr2[] = new int[arr1.length];
-		int S, B;
-		String SCount, BCount;
-		String result;
+		int S, B, tryCount = 0;
+		String SCount, BCount, result;
 		//중복되지 않는 랜덤한 숫자 3개가 들어간 배열 생성
 		creatRandomArry(1, 9, arr1);
-		printArray(arr1);
 		
 		do{System.out.println("input 3 number : ");
 			S = 0;
@@ -42,18 +40,21 @@ public class BaseballGameEx {
 			for(int i = 0; i < arr1.length; i++) {
 				arr2[i] = sc.nextInt();
 			}
+			tryCount += 1;
 			for(int i = 0; i < arr1.length; i++) {
 				if(arr1[i] == arr2[i]) {
 					S += 1;
+				}else if(contains(arr1, arr2[i], arr1.length)){
+					B += 1;
 				}
 			}
-			SCount = (S != 0)? S+"S":null;
-			BCount = (B != 0)? B+"B":null;
-			result = SCount + BCount;
+			SCount = (S != 0)? S+"S":"";
+			BCount = (B != 0)? B+"B":"";
+			result = (S == 0 && B == 0)? "3O":SCount + BCount;
 			System.out.println(result);
-		}while(!result.equals("3S"));
-		
-		
+		}while(!result.equals(""+arr1.length+"S"));
+		System.out.println("Good!");
+		System.out.println("Try Count : " + tryCount);
 		sc.close();
 	}
 	/**정수형 배열이 주어지면, 정수형 배열의 값을 콘솔에 출력하는 메서드
@@ -99,7 +100,7 @@ public class BaseballGameEx {
 			return;
 		}
 		int count = 0;
-		while(count < 3) {
+		while(count < arr.length) {
 			int random = (int)(Math.random() * (max - min + 1) + min);
 			//중복되지 않으면 배열에 저장 후 count 증가
 			if(!contains(arr, random, count)) {
