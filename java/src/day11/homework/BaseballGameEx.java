@@ -43,9 +43,9 @@ public class BaseballGameEx {
 			tryCount += 1;
 			for(int i = 0; i < arr1.length; i++) {
 				if(arr1[i] == arr2[i]) {
-					S += 1;
+					S ++;
 				}else if(contains(arr1, arr2[i], arr1.length)){
-					B += 1;
+					B ++;
 				}
 			}
 			SCount = (S != 0)? S+"S":"";
@@ -87,7 +87,7 @@ public class BaseballGameEx {
 		return false;	
 	}
 	
-	/**최소값,최대값,배열을 입력하면 최소값~최대값 사이의 정수를 중복되지 않게 배열에 입력하는 메서드
+	/**최소값,최대값,배열을 입력하면 최소값~최대값 사이의 정수를 중복되지 않도록 배열에 입력하는 메서드
 	 * 매개변수 : 최소값, 최대값, 배열 => int min, int max, int arr[]
 	 * 리턴타입 : 없음 => void
 	 * 메서드명 : createRandomArray

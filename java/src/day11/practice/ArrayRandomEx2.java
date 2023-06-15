@@ -93,7 +93,7 @@ public class ArrayRandomEx2 {
 		return false;	
 	}
 
-	/**min에서 max사이의 랜덤한 수를 생성해서 배열에 저장하는 메서드
+	/**min에서 max사이의 랜덤한 수를 생성해서 중복되지 않도록 배열에 저장하는 메서드
 	 * 매개변수 : 최소값, 최대값, 배열 => int min, int max, int arr[]
 	 * 리턴타입 : void
 	 * 메서드명 : createRandomArray
@@ -109,7 +109,7 @@ public class ArrayRandomEx2 {
 			return;
 		}
 		int count = 0;
-		while(count < 3) {
+		while(count < arr.length) {
 			int random = (int)(Math.random() * (max - min + 1) + min);
 			//중복되지 않으면 배열에 저장 후 count 증가
 			if(!contains(arr, random, count)) {
