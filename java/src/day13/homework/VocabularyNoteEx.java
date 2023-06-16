@@ -58,26 +58,26 @@ public class VocabularyNoteEx {
 		VocabularyNote note = new VocabularyNote(wordList);
 		
 		String title, meaning, updatetitle, updatemeaning;
-		int menu;
+		int menu, meaningnum;
 		char submenu;
 		
 		do {
+			System.out.println();
 			System.out.println("Menu");
-			System.out.println("1. Insert word");
-			System.out.println("2. Delete word");
-			System.out.println("3. Update word");
-			System.out.println("4. Print word");
+			System.out.println("1. Insert title");
+			System.out.println("2. Delete title");
+			System.out.println("3. Update title");
+			System.out.println("4. Print title");
 			System.out.println("5. Exit program");
 			System.out.println();
 			System.out.println("Select menu : ");
-			System.out.println();
 			menu = sc.nextInt();
 
 			switch(menu) {
 			case 1 : 
-				System.out.println("1. Insert word");
+				System.out.println("1. Insert title");
 				//단어 입력
-				System.out.println("input word to insert");
+				System.out.println("input title to insert");
 				title = sc.next();
 				//뜻 입력
 				System.out.println("input meaning to insert");
@@ -85,22 +85,23 @@ public class VocabularyNoteEx {
 				meaning = sc.nextLine();
 				//노트에 추가
 				note.insert(title,meaning);
-				continue;
+				break;
 			case 2 : 
-				System.out.println("2. Delete word");
+				System.out.println("2. Delete title");
 				//단어 입력
 				System.out.println("input word to delete");
 				title = sc.next();
 				//노트에서 제거
 				note.delete(title);
-				continue;
+				break;
 			case 3 : 
 				do {
+					System.out.println();
 					System.out.println("Sub menu");
 					System.out.println("a. Update title");
 					System.out.println("b. Update meaning");
-					System.out.println("c. delete meaning");
-					System.out.println("x. Menu exit");
+					System.out.println("c. Delete meaning");
+					System.out.println("x. Sub menu exit");
 					System.out.println();
 					System.out.println("Select submenu : ");
 					submenu = sc.next().charAt(0);
@@ -113,36 +114,62 @@ public class VocabularyNoteEx {
 						title = sc.next();
 						System.out.println("input corrected title");
 						updatetitle = sc.next();
+						
+						note.updateTitle(title, updatetitle);
+						System.out.println("Update complite");
 						continue;
 					case 'b' :
 						System.out.println("b. Update meaning");
+						System.out.println("input title");
+						title = sc.next();
+						note.search(title);
+						System.out.println("input meaning number to update");
+						meaningnum = sc.nextInt();
+						System.out.println("input corrected meaning");
+						sc.nextLine();
+						updatemeaning = sc.nextLine();
+						
+						note.updateMeaning(title, meaningnum, updatemeaning);
 						continue;
 					case 'c' :
-						System.out.println("c. delete meaning");
+						System.out.println("c. Delete meaning");
+						System.out.println("input title");
+						title = sc.next();
+						note.search(title);
+						System.out.println("input meaning number to delete");
+						meaningnum = sc.nextInt();
+						
+						note.deleteMeaning(title, meaningnum);
 						continue;
 					case 'x' :
 						System.out.println("Exit of submenu!");
-						continue;
+						break;
 					default : 
 						System.out.println("Wrong submenu!");
 					}
-					continue;
-				}while(submenu == 'x');
+				}while(submenu != 'x');
+				break;
 			case 4 : 
 				do {
-				System.out.println("Sub menu");
-				System.out.println("a. Update title");
-				System.out.println("b. Update meaning");
-				System.out.println();
-				System.out.println("Select submenu : ");
-				submenu = sc.next().charAt(0);
-				System.out.println();
+					System.out.println();
+					System.out.println("Sub menu");
+					System.out.println("a. Print all");
+					System.out.println("b. search");
+					System.out.println("x. Sub menu exit");
+					System.out.println();
+					System.out.println("Select submenu : ");
+					submenu = sc.next().charAt(0);
+					System.out.println();
 
-				switch(submenu) {
+					switch(submenu) {
 				case 'a' :
 					note.print();
 					continue;
 				case 'b' :
+					System.out.println("b. search");
+					System.out.println("input title to search");
+					title = sc.next();
+					note.search(title);
 					continue;
 				case 'x' :
 					System.out.println("Exit of submenu!");
@@ -150,8 +177,8 @@ public class VocabularyNoteEx {
 				default : 
 					System.out.println("Wrong submenu!");
 				}
-				}while(submenu == 'x');
-				continue;
+				}while(submenu != 'x');
+				break;
 			case 5 : 
 				System.out.println("Exit of menu!");
 				break;
