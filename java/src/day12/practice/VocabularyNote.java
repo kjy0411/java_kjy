@@ -132,7 +132,9 @@ public class VocabularyNote {
 			 System.out.println("No words found");
 			 return;
 		 }
+		 System.out.println("------------------------");
 		 wordList[index].print();
+		 System.out.println("------------------------");
 	 }
 	 
 	/**단어와 수정할 뜻의 번호와 수정할 뜻이 주어지면 단어의 뜻을 수정하는 메서드
@@ -167,5 +169,21 @@ public class VocabularyNote {
 		}
 		
 		wordList[index].setTitle(updateTitle);
+	}
+	
+	/**단어와 삭제할 뜻의 번호가 주어지면 단어의 뜻을 삭제하는 메서드
+	 * 매개변수 : 단어, 삭제할 뜻의 번호 => String title, int meaningIndex
+	 * 리턴타입 : 없음 => void
+	 * 메서드명 : deleteMeaning
+	 */
+	public void deleteMeaning(String title, int meaningIndex) {
+		int index = indexOf(title);
+		
+		if(index == -1) {
+			System.out.println("No word found");
+			return;
+		}
+		wordList[index].removeMeaning(meaningIndex);
+		
 	}
 }
