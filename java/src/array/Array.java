@@ -104,5 +104,25 @@ public class Array {
 		}
 		return false;
 	}
+	/**정수형 배열이 주어지면 오름차순으로 버블정렬하는 메서드
+	 * 매개변수 : 정수형 배열 => int arr[]
+	 * 리턴타입 : 없음 => void
+	 * 메서드명 : sort
+	 */
+	public static void sort(int[] arr){
+		if(arr == null) {
+			return;
+		}
+		for(int i = 0; i < arr.length-1; i++) {			//-1 두번째로 작은 수가 결정되면 자동으로 가장 작은수도 결정된다
+			for(int j = 0; j < arr.length-1-i; j++) {	//-i 이미 결정된 수들은 제외하고 반복한다
+				if(arr[j] > arr[j+1]) {
+					int tmp = arr[j];
+					arr[j] = arr[j+1];
+					arr[j+1] = tmp;
+				}
+			}
+		}
+	}
+	
 	
 }
