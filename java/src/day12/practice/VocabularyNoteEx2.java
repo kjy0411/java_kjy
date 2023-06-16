@@ -29,6 +29,10 @@ public class VocabularyNoteEx2 {
 		note.updateTitle("b", "B");
 		note.updateTitle("b", "B");		//No word found -> 29
 		
+		note.print();
+		
+		note.deleteMeaning("B", 1);
+		
 		note.print();					//단어장 전체출력
 	}
 
