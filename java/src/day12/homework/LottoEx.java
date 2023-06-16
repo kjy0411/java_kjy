@@ -23,10 +23,11 @@ public class LottoEx {
 		 */
 		Scanner sc = new Scanner(System.in);
 		
-		int com[] = new int[7];		//로또 번호
+		int Lotto[] = new int[7];		//로또 번호
 		int user[] = new int[6];	//사용자가 입력한 번호
 		//컴퓨터 번호 생성
-		Array.createRandonArray(1, 45, com);
+		Array.createRandonArray(1, 45, Lotto);
+		//Array.printArray(Lotto);	//테스트용 로또번호 출력
 		//사용자 번호 입력
 		System.out.println("input (1~45)numbers : ");
 		for(int i = 0; i < user.length;) {
@@ -45,8 +46,14 @@ public class LottoEx {
 				i++;
 			}
 		}
-		System.out.print("Lotto : ");
-		Array.printArray(com);
+		System.out.print("Number : ");
+		int bonusNum = Lotto[6];
+		int lotto2[] = new int[6];
+		System.arraycopy(Lotto, 0, lotto2, 0, 6);
+		
+		System.out.print("number : ");
+		Array.printArray(lotto2);
+		System.out.println("bonus : " + bonusNum);
 		System.out.print("User : ");
 		Array.printArray(user);
 
@@ -54,33 +61,31 @@ public class LottoEx {
 		boolean bonus = false;	//보너스번호
 		//당첨번호 개수 확인
 		for(int i = 0; i < user.length; i++ ) {
-			if(Array.contains(user, com[i], user.length)){
+			if(Array.contains(user, Lotto[i], user.length)){
 				count++;
 			}
 		}
 		//보너스번호 확인
-		if(Array.contains(user, com[6], user.length)) {
+		if(Array.contains(user, Lotto[6], user.length)) {
 			bonus = true;
 		}
 		//당첨번호 개수와 보너스 유무에 따른 결과 출력
 		System.out.print("result : ");
 		switch(count) {
 		case 6 :
-			System.out.println(1 + "!");
+			System.out.println("Winner of the lottery");
 			break;
 		case 5 :
-			System.out.println(bonus ? 2 + "!":3 + "!");
+			System.out.println(bonus ? "Second place in the lottery":"3rd place in the lottery");
 			break;
 		case 4 : 
-			System.out.println(4 + "!");
-
+			System.out.println("4rd place in the lottery");
 			break;
 		case 3 :
-			System.out.println(5 + "!");
-
+			System.out.println("5rd place in the lottery");
 			break;
 		default : 
-			System.out.println("losing ticker!");
+			System.out.println("Losing ticker!");
 		}
 
 		
