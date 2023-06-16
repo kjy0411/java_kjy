@@ -1,7 +1,5 @@
 package day2.variable;
 
-import java.awt.image.AreaAveragingScaleFilter;
-
 public class Pratice {
 
 	public static void main(String[] args) {
