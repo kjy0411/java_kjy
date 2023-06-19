@@ -135,8 +135,9 @@ public class VocabularyNote {
 			 System.out.println("No words found");
 			 return false;
 		 }
-		 
+		 System.out.println("====================");
 		 wordList[index].print();
+		 System.out.println("====================");
 		 return true;
 	 }
 	 
