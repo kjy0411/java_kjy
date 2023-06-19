@@ -72,7 +72,8 @@ public class VocabularyNoteEx {
 			System.out.println();
 			System.out.println("Select menu : ");
 			menu = sc.nextInt();
-
+			System.out.println();
+			
 			switch(menu) {
 			case 1 : 
 				System.out.println("1. Insert title");
@@ -96,7 +97,6 @@ public class VocabularyNoteEx {
 				break;
 			case 3 : 
 				do {
-					System.out.println();
 					System.out.println("Sub menu");
 					System.out.println("a. Update title");
 					System.out.println("b. Update meaning");
@@ -151,10 +151,9 @@ public class VocabularyNoteEx {
 				break;
 			case 4 : 
 				do {
-					System.out.println();
 					System.out.println("Sub menu");
 					System.out.println("a. Print all");
-					System.out.println("b. search");
+					System.out.println("b. Search");
 					System.out.println("x. Sub menu exit");
 					System.out.println();
 					System.out.println("Select submenu : ");
