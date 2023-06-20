@@ -123,7 +123,7 @@ public class VocabularyNote {
 		 return true;
 	 }
 	
-	/**단어가 주어지면 단어장에 해당 단어를 출력하는 단어가 있는지 없는지 메서드
+	/**단어가 주어지면 단어장에 해당 단어를 출력하고 단어가 있는지 없는지 알려주는 메서드
 	 * 매개변수 : 단어 => String title
 	 * 리턴타입 : 단어가 있는지 없는지 => boolean
 	 * 메서드명 : search

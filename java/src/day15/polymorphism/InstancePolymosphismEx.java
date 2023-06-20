@@ -47,7 +47,6 @@ public class InstancePolymosphismEx {
 			remocon.turnOn(radio);
 		}
 		*/
-		
 		//포함 다형성 예제, 객체 다형성 예제
 		int tvCount = 1, airconCount = 2, radioCount = 3;
 		int total = tvCount + airconCount + radioCount;
@@ -75,7 +74,9 @@ public class InstancePolymosphismEx {
 			//라디오로 다운캐스팅이 가능한 객체만 끔 => 라디오만 끔
 			if(homeAppliance instanceof Radio){
 				remocon.turnOff(homeAppliance);		//다운 캐스팅이 아님
-				System.out.println(homeAppliance.power);
+				Radio radio = (Radio)homeAppliance;	//다운 캐스팅
+				
+				System.out.println(radio.frequency);
 			}
 		}
 		
