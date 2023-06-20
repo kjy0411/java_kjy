@@ -48,7 +48,5 @@ public class Product {
 		this.amount += amount;
 	}
 	
-	/**제품의
-	 * 
-	 */
+	
 }

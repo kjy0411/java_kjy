@@ -93,7 +93,7 @@ public class ShopManager {
 			return;
 		}
 		//제품 리스트에서 입고할 제품명이 있는지 찾음
-		int index =indexOf(name);
+		int index = indexOf(name);
 		//제품 배열에 있는 제품명과 입고할 제품명이 같은지를 확인해서 같으면 위치를 기억
 		//있으면 입고할 제품 수량 만큼 해당 제품에 입고
 		//위치가 0 이상이면
@@ -125,9 +125,21 @@ public class ShopManager {
 		
 		System.out.println("제품 추가 후 입고완료");
 	}
+	
 	private void printProduct() {
-		// TODO Auto-generated method stub
-		
+		//조회할 제품 입력
+		System.out.print("조회할 제품명 : ");
+		sc.nextLine();
+		String name = sc.nextLine();
+		//제품 리스트에 제품이 있는지 확인
+		int index = indexOf(name);
+		//있으면 제품 정보 출력
+		if(index!=-1) {
+			printInfo(name);
+			return;
+		}
+		//없으면 입고 요청
+		System.out.println("리스트에 없습니다");
 	}
 	private void printSales() {
 		// TODO Auto-generated method stub
@@ -150,5 +162,16 @@ public class ShopManager {
 			}
 		}
 		return -1;
+	}
+	
+	/**제품의 정보를 출력하는 메서드
+	 */
+	public void printInfo(String name) {
+		int index = indexOf(name);
+		System.out.println("제품명 : " + list[index].getName());
+		System.out.println("모델 : " + list[index].getModelName());
+		System.out.println("가격 : " + list[index].getPrice());
+		System.out.println("수량 : " + list[index].getAmount());
+		System.out.println("분류 : " + list[index].getCategory());
 	}
 }
