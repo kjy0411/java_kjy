@@ -2,13 +2,20 @@ package day15.practice.shop.controller;
 
 import java.util.Scanner;
 
+import day15.practice.shop.vo.Customer;
 import day15.practice.shop.vo.Product;
+import day15.practice.shop.vo.Sales;
 
 public class ShopManager {
 	
 	Scanner sc = new Scanner(System.in);
-	private Product list[] = new Product[10];
-	public int count = 0;
+	private Product list[] = new Product[10];//제품 리스트
+	private int count = 0;//저장된 제품 개수
+	private Customer customerList[] = new Customer[10];//최대 10명의 고객 관리
+	private int customerCount = 0;//저장된 고객 수
+	private Sales salesHistory[] = new Sales[100];//판매 기록
+	private int salesCount;//기록된 판매수
+	private int totalPrice = 0;//토탈 금액
 	
 	public void run(String[] args) {
 		/* 가전 제품(TV, 라디오, 에어컨)을 관리하는 프로그램을 작성하세요.
@@ -27,7 +34,7 @@ public class ShopManager {
 		System.out.println("프로그램 시작!");
 		do {
 			//메뉴 출력
-			printmenu();
+			printMenu();
 			
 			//메뉴 선택
 			menu = sc.nextInt();
@@ -39,7 +46,7 @@ public class ShopManager {
 		System.out.println("프로그램 종료!");
 		sc.close();
 	}
-	private void printmenu() {
+	private void printMenu() {
 		System.out.println("====================");
 		System.out.println("메뉴");
 		System.out.println("1. 제품 판매");
@@ -75,9 +82,61 @@ public class ShopManager {
 			System.out.println("잘못된 메뉴!");
 		}
 	}
-	private void sell() {
-		// TODO Auto-generated method stub
+	private void sell() {		
+		//구매할 물품 입력
+		System.out.print("제품명 : ");
+		sc.nextLine();
+		String name = sc.nextLine();
+		//제품 개수 입력
+		System.out.print("수량 : ");
+		int amount = sc.nextInt();
+		//구매한 고객의 전화번호 입력
+		System.out.print("번호 : ");
+		String phonenumber = sc.next();
 		
+		//있는 제품인지 확인
+		int index = indexOf(name);
+		if(index < 0) {
+			System.out.println("제품명 오류!");
+			return;
+		}
+		if(amount <= 0) {
+			System.out.println("제품 수량 오류!");
+			return;
+		}
+		
+		//있는 고객인지 확인
+		int customerIndex = indexOfCustomer(phonenumber);
+		if(customerIndex < 0) {
+			System.out.println("전화번호 오류!");
+			return;
+		}
+		
+		//판매 내역에 추가
+		//제품 정보
+		//복사 생성자를 이용해서 제품 정보를 복사(깊은 복사)
+		Product product = new Product(list[index]);
+		product.setAmount(amount);
+		//고객 정보
+		Customer customer = customerList[customerIndex];
+		
+		Sales sales = new Sales(customer, product);
+		salesHistory[salesCount++] = sales;
+		
+		//판매된 개수만큼 재고량에서 빼줘야함
+		list[index].sell(amount);
+		
+		//매출금액을 추가
+		totalPrice += sales.getTotalPrice();
+	}
+	private int indexOfCustomer(String phonenumber) {
+		for(int i = 0; i < customerCount; i++) {
+			//고객의 번호가 같으면
+			if(customerList[i].getPhoneNumber().equals(phonenumber)) {
+				return i;
+			}
+		}
+		return -1;
 	}
 	public void store() {
 		//입고할 제품명 입력
@@ -85,7 +144,7 @@ public class ShopManager {
 		sc.nextLine();
 		String name = sc.nextLine();
 		//입고할 제품 수량
-		System.out.print("수량: ");
+		System.out.print("수량 : ");
 		int amount = sc.nextInt();
 		
 		if(amount < 0) {
@@ -125,28 +184,59 @@ public class ShopManager {
 		
 		System.out.println("제품 추가 후 입고완료");
 	}
-	
+	//제품을 검색해서 조회하는 메서드
 	private void printProduct() {
-		//조회할 제품 입력
-		System.out.print("조회할 제품명 : ");
+		//검색할 제품 입력
+		System.out.print("제품명 : ");
 		sc.nextLine();
 		String name = sc.nextLine();
-		//제품 리스트에 제품이 있는지 확인
+		
+		System.out.println("====================");
+		//입력한 검색에 맞는 제품을 출력
+		//등록된 제품들 중에 검색어와 일치하는 제품이 어디있는지 확인
 		int index = indexOf(name);
-		//있으면 제품 정보 출력
-		if(index!=-1) {
-			printInfo(name);
+		
+		//제품이 있으면 제품 정보 출력
+		if(index >= 0) {
+			list[index].print();
 			return;
 		}
-		//없으면 입고 요청
-		System.out.println("리스트에 없습니다");
+		//없으면 없는 제품이라고 출력
+		System.out.println("없는 제품입니다");
 	}
 	private void printSales() {
-		// TODO Auto-generated method stub
-		
+		//매출 내역
+		for(int i = 0; i < salesCount; i++) {
+			salesHistory[i].print();
+		}
+		//누적 매출액 출력
+		System.out.println("누적 매출액 : " + totalPrice);
 	}
+	//고객관리
 	private void registerCustomer() {
-		// TODO Auto-generated method stub
+		//고객 정보(이름, 전화번호)를 입력
+		System.out.print("이름 : ");
+		String name = sc.next();
+		System.out.print("번호 : ");
+		String phonenumber = sc.next();
+		
+		//고객을 등록(고객 리스트에)
+		//이미 등록된 전화번호이면 등록을 X
+		for(int i = 0; i < customerCount; i++) {
+			//customerList[i] : 고객 리스트에서 i번지에 있는 고객 정보
+			//customerList[i].getPhoneNumber() : i번지에 있는 고객의 전화번호
+			//i번지 고객의 전호번호와 등록하려는 고객의 전화번호가 같으면 등록 실패
+			if(customerList[i].getPhoneNumber().equals(phonenumber)) {
+				System.out.println("등록된 번호! 고객 등록 실패!");
+				return;
+			}
+		}
+		//새 전화번호이면 등록
+		//입력받은 고객 정보를 이용하여 고객 객체를 생성한 후, 마지막 고객 다음에 새 고객을 추가하고 등록된 고객의 수를 증가
+		customerList[customerCount++] = new Customer(name, phonenumber);
+		
+		System.out.println("등록이 완료되었습니다!");
+		
 		
 	}
 	
@@ -164,14 +254,5 @@ public class ShopManager {
 		return -1;
 	}
 	
-	/**제품의 정보를 출력하는 메서드
-	 */
-	public void printInfo(String name) {
-		int index = indexOf(name);
-		System.out.println("제품명 : " + list[index].getName());
-		System.out.println("모델 : " + list[index].getModelName());
-		System.out.println("가격 : " + list[index].getPrice());
-		System.out.println("수량 : " + list[index].getAmount());
-		System.out.println("분류 : " + list[index].getCategory());
-	}
+	
 }
