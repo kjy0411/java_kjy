@@ -6,9 +6,9 @@ public class Run {
 
 	public static void main(String[] args) {
 		//ShopManger
-		ShopManager ShopManger = new ShopManager();
+		ShopManager shopManager = new ShopManager();
 		
-		ShopManger.run(args);
+		shopManager.run(args);
 	}
 
 }
