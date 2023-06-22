@@ -23,34 +23,10 @@ public class Drink {
 		}
 		this.amount += amount;
 	}
-	public void sell(int mount) {
-		if(amount < 0) {
-			return;
+	public void sell() {
+		if(amount > 0) {
+			amount--;
 		}
-		this.amount -= amount;
-	}
-	
-}
-
-class Sider extends Drink{
-
-	public Sider(String name, int price, int amount) {
-		super(name, price, amount);
-		
-	}
-	
-}
-class Cola extends Drink{
-
-	public Cola(String name, int price, int amount) {
-		super(name, price, amount);
-	}
-	
-}
-class Fanta extends Drink{
-
-	public Fanta(String name, int price, int amount) {
-		super(name, price, amount);
 	}
 	
 }

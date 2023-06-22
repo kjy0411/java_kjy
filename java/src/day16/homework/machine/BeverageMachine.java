@@ -53,7 +53,7 @@ public class BeverageMachine {
 	}
 
 	private void printMenu() {
-		System.out.println("======================");
+		System.out.println("===========================");
 		System.out.println("메뉴");
 		System.out.println("1. 금액 투입");
 		System.out.println("2. 메뉴 선택");
@@ -64,7 +64,7 @@ public class BeverageMachine {
 	}
 	
 	private void runMenu(int menu) {
-		System.out.println("======================");
+		System.out.println("===========================");
 		switch(menu) {
 		case 1:
 			System.out.print("투입할 금액 : ");
@@ -77,32 +77,76 @@ public class BeverageMachine {
 			runSubMenu(subMenu);
 			break;
 		case 3:
+			storeDrint();
 			break;
 		case 4:
 			System.out.println("프로그램 종료");
+			break;
 		default :
-			System.out.println("잘못된 메뉴!");
+			System.out.println("잘못된메뉴!");
 		}
 		
 	}
 
+	private void storeDrint() {
+		System.out.print("음료 : ");
+		String name = sc.next();
+		System.out.print("수량 : ");
+		int count = sc.nextInt();
+		
+		int index = index(name);
+		
+		if(index(name) != -1) {
+			list[index].store(count);
+		}
+		System.out.println(name + "의 재고는 " + list[index].getAmount() + "개 입니다");
+		
+	}
+
+	private int index(String name) {
+		for(int i = 0; i < list.length; i++) {
+			if(list[i].getName().equals(name)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
 	private void printSubMenu() {
-		System.out.println("======================");
-		System.out.println("서브메뉴");
-		System.out.println("1. 사이다");
-		System.out.println("2. 콜라");
-		System.out.println("3. 환타");
+		System.out.println("음료");
+		System.out.println("1. 사이다	(1000)");
+		System.out.println("2. 콜라	(1200)");
+		System.out.println("3. 환타	(900)");
+		System.out.println("잔액 : " + totalAmount);
+
 		System.out.print("서브메뉴 선택 : ");
 	}
 
 	private void runSubMenu(int subMenu) {
-		switch(subMenu) {
-		case 1:
-		case 2:
-		case 3:
-		default :
+		int adress = subMenu - 1;
+		if(subMenu < 1 || subMenu > 3) {
+			System.out.println("잘못된 메뉴선택!");
+			return;
 		}
+		if(list[adress].getAmount() == 0) {
+			System.out.println("매진입니다");
+			return;
+		}
+		if(list[adress].getPrice() > totalAmount) {
+			System.out.println("금액이 부족합니다");
+			return;
+		}
+		totalAmount -= list[adress].getPrice();
+		list[adress].sell();
+		System.out.println(list[adress].getName() + "지급");
 		
+		System.out.println("거스름돈 : " + totalAmount);
+		System.out.println("거스름돈을 받으시겠습니까?(y/n) : ");
+		char result = sc.next().charAt(0);
+		if(result == 'y') {
+			System.out.println("거스름돈 " + totalAmount + "지급");
+			totalAmount = 0;
+		}
 	}
 
 }
