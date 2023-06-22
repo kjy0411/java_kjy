@@ -8,7 +8,7 @@ public class Run {
 		//ShopManger
 		ShopManager shopManager = new ShopManager();
 		
-		shopManager.run(args);
+		shopManager.run();
 	}
 
 }

@@ -17,7 +17,7 @@ public class ShopManager {
 	private int salesCount;//기록된 판매수
 	private int totalPrice = 0;//토탈 금액
 	
-	public void run(String[] args) {
+	public void run() {
 		/* 가전 제품(TV, 라디오, 에어컨)을 관리하는 프로그램을 작성하세요.
 		 * 1. 제품 판매 : 어떤 고객이 어떤 제품을 구매했는지 관리
 		 * 2. 제품 입고 : 새 제품이 추가됨, 어떤 제품이 몇개 추가됐는지 관리

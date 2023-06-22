@@ -9,7 +9,7 @@ public class VocabularyNoteController {
 	private Scanner sc = new Scanner(System.in);
 	private VocabularyNote note = new VocabularyNote();
 	
-	public void run(String[] args) {
+	public void run() {
 		int menu = -1;
 		//반복(종료를 선택하기 전까지)
 		do {
