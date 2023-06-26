@@ -7,10 +7,10 @@ import day16.homework.vo.Drink;
 public class BeverageMachine {
 	
 	Scanner sc = new Scanner(System.in);
-	private int totalAmount = 0;
+	private int totalAmount = 0;	//자판기에 넣은 금액
 	Drink list[] = new Drink[3];
 	
-	public void run(String[] args) {
+	public void run() {
 		//음료수를 뽑는 자판기 프로그램을 작성하세요.
 		//단 음료수 자판기에 음료수는 사이다, 콜라, 환타가 고정이라고 가정.
 		//메뉴를 선택하면 음료수와 잔액이 나옴(출력).

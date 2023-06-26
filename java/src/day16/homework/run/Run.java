@@ -8,7 +8,7 @@ public class Run {
 		//BeverageMachine
 		BeverageMachine beverageMachine = new BeverageMachine();
 		
-		beverageMachine.run(args);
+		beverageMachine.run();
 	}
 
 }
