@@ -1,5 +1,7 @@
 package day13.homework.vo;
 
+import day20.homework.vocabularynote.vo.Word;
+
 /* 단어장 클래스
  * - 단어들의 모임
  * - Word들의 모임
