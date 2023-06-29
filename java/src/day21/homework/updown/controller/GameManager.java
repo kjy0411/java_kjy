@@ -77,7 +77,8 @@ public class GameManager implements Program {
 		int tryCount = 0;
 		System.out.println(com);
 		
-		do {
+		while(user != com){
+			System.out.print("input number (1~100) : ");
 			user = sc.nextInt();
 			if(user < min || user > max) {
 				System.out.print("input " + min + "~" + max + " number : ");
@@ -93,8 +94,14 @@ public class GameManager implements Program {
 				System.out.println("Good!");
 			}
 			tryCount++;
-		}while(user != com);
-		
+		}
+		if(list.size() == 5 &&  list.get(list.size()-1).getCount() <= tryCount) {
+			return;
+		}
+		if(list.size() == 5) {
+			//마지막 기록을 삭제
+			list.remove(list.size()-1);
+		}
 		//기록 : 아이디(입력), 플레이 횟수
 		//아이디 입력
 		System.out.print("record id : ");
