@@ -22,11 +22,14 @@ public class PhoneNumberList implements Program{
 			menu = sc.nextInt();
 			
 			runMenu(menu);
+			
+			System.out.println("======================================");
+			print();
 		}while(menu != EXIT);
 	}
+	
 	@Override
 	public void printMenu() {
-		print();
 		System.out.println("=================MENU=================");
 		System.out.println("1. Insert PhoneNumber");
 		System.out.println("2. Update PhoneNumber");
@@ -36,6 +39,7 @@ public class PhoneNumberList implements Program{
 	}
 	@Override
 	public void runMenu(int menu) {
+		System.out.println("======================================");
 		String name;
 		String phoneNumber;
 		switch(menu) {
@@ -44,19 +48,22 @@ public class PhoneNumberList implements Program{
 			name = sc.next();
 			System.out.print("Input PhoneNumber : ");
 			phoneNumber = sc.next();
-			insertPhoneNumber(name, phoneNumber);
+			
+			list.add(new PhoneNumber(name, phoneNumber));
 			break;
 		case 2:
-			printSubMenu();
+			printUpdateSubMenu();
 			
-			int subMenu = sc.nextInt();
+			int updateSubMenu = sc.nextInt();
 			
-			runSubMenu(subMenu);
-			
+			runUpdateSubMenu(updateSubMenu);
 			break;
 		case 3:
-			name = sc.next();
-			updatePhoneNumber(name);
+			printSearchSubmenu();
+			
+			int searchSubMenu = sc.nextInt();
+			
+			runSearchSubMenu(searchSubMenu);
 			break;
 		case 4:
 			System.out.println("Program EXIT");
@@ -65,45 +72,83 @@ public class PhoneNumberList implements Program{
 			System.out.println("Wrong Menu");
 		}
 	}
-	private void runSubMenu(int subMenu) {
-		System.out.print("Input PhoneNumber");
+	private void printUpdateSubMenu() {
+		System.out.println("1. Delete PhoneNumber");
+		System.out.println("2. Update PhoneNumber");
+		System.out.print("Select Menu : ");
+	}
+	private void runUpdateSubMenu(int subMenu) {
+		System.out.println("======================================");
+		int index = -1;
+		System.out.print("Input PhoneNumber : ");
+		String name;
 		String phoneNumber = sc.next();
 		switch(subMenu) {
 		case 1:
-			int index = 0;
 			for(PhoneNumber tmp : list) {
-				if(phoneNumber == tmp.getPhoneNumber()) {
-					list.remove(index);
+				if(tmp.getPhoneNumber().equals(phoneNumber)) {
+					index = list.indexOf(tmp);
 				}
-				index++;
 			}
+			
+			list.remove(index);
 			break;
 		case 2:
-			updatePhoneNumber(phoneNumber);
+			for(PhoneNumber tmp : list) {
+				if(tmp.getPhoneNumber().equals(phoneNumber)) {
+					index = list.indexOf(tmp);
+				}
+			}
+			System.out.println(list.get(index));
+			System.out.print("Input Name : ");
+			name = sc.next();
+			
+			System.out.print("Input PhoneNumber : ");
+			phoneNumber = sc.next();
+			
+			list.get(index).update(name, phoneNumber);
 			break;
 		default :
 			System.out.println("Wrong Menu");
 		}
 	}
-	private void printSubMenu() {
-		System.out.println("===============SUB MENU===============");
-		System.out.println("1. Delete PhoneNumber");
-		System.out.println("2. Update PhoneNumber");
+	private void printSearchSubmenu() {
+		System.out.println("1. Name");
+		System.out.println("2. PhoneNumber");
 		System.out.print("Select Menu : ");
 	}
-	private void insertPhoneNumber(String name, String phoneNumber) {
-		list.add(new PhoneNumber(name, phoneNumber));
-	}
-	private void updatePhoneNumber(String name, String phoneNumber) {
-		
-	}
-	private void updatePhoneNumber(String name) {
-		
+	private void runSearchSubMenu(int subMenu) {
+		System.out.println("======================================");
+		switch(subMenu) {
+		case 1:
+			System.out.print("Input Name : ");
+			String name = sc.next();
+			
+			for(PhoneNumber tmp : list) {
+				if(tmp.getName().equals(name)) {
+					System.out.println("======================================");
+					System.out.println(tmp);
+				}
+			}
+			break;
+		case 2:
+			System.out.print("Input PhoneNumber : ");
+			String phoneNumber = sc.next();
+			
+			for(PhoneNumber tmp : list) {
+				if(tmp.getPhoneNumber().equals(phoneNumber)) {
+					System.out.println("======================================");
+					System.out.println(tmp);
+				}
+			}
+			break;
+		default:
+			System.out.println("Wrong Menu");
+		}
 	}
 	private void print() {
 		for(PhoneNumber tmp : list) {
 			System.out.println(tmp);
 		}
 	}
-
 }

@@ -8,4 +8,11 @@ import lombok.Data;
 public class PhoneNumber {
 	String name;
 	String phoneNumber;
+	
+	public void update(String name, String phoneNumber) {
+		this.name = name;
+		this.phoneNumber = phoneNumber;
+	}
+	
+	
 }
