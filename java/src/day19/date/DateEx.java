@@ -9,6 +9,7 @@ import java.util.Date;
 
 public class DateEx {
 
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) throws ParseException {
 		
 		//현재 시간을 Date 객체로 생성(java.util)

@@ -3,7 +3,9 @@ package day25.practice.student2.vo;
 import java.io.Serializable;
 
 public class Student implements Serializable{
+	
 	private static final long serialVersionUID = -5262211095268078557L;
+	
 	private String num, name, major;
 
 	public Student(String num, String name, String major) {
