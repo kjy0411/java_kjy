@@ -25,17 +25,19 @@ public class LoanBrowsing1 implements Serializable{
 		this.returnDate = "미반납";
 		SimpleDateFormat format =
 				new SimpleDateFormat("yyyy-MM-dd EEEE");
-		Date loanDates = format.parse(loanDate);
-		
-		Calendar calendar =  Calendar.getInstance();
-		calendar.setTime(loanDates);
-		
-		int day = calendar.get(Calendar.DAY_OF_MONTH);
-		calendar.set(Calendar.DAY_OF_MONTH, day+14);
-		
-		loanDates = new Date(calendar.getTimeInMillis());
-		
-		this.loanPeriod = format.format(loanDates);
+		if(loanDate != "") {
+			Date loanDates = format.parse(loanDate);
+
+			Calendar calendar =  Calendar.getInstance();
+			calendar.setTime(loanDates);
+
+			int day = calendar.get(Calendar.DAY_OF_MONTH);
+			calendar.set(Calendar.DAY_OF_MONTH, day+14);
+
+			loanDates = new Date(calendar.getTimeInMillis());
+
+			this.loanPeriod = format.format(loanDates);
+		}
 	}
 
 

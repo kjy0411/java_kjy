@@ -25,7 +25,7 @@ public class LibraryController1 {
 	private static List<LoanBrowsing1> loanList = new ArrayList<>();
 	private static Date now = new Date();
 	private static SimpleDateFormat format =
-			new SimpleDateFormat("yyyy-MM-dd EEEE zzzz HH:mm:ss");
+			new SimpleDateFormat("yyyy-MM-dd EEEE HH:mm:ss");
 
 	
 	public void run() throws ParseException {
