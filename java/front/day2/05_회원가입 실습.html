@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<!--
+		회원가입 페이지를 작성하세요.
+		아이디,비번,비번확인,전화번호,이름,이메일,성별을 입력
+	-->
+	<h3>회원가입</h3>
+	<form>
+		<table border = "1">
+			<thead>
+				<tr>
+					<th><label>아이디</th>
+					<td><input type="text" name="ID" placeholder="아이디"></label></td>
+				</tr>
+				<tr>
+					<th><label>비밀번호</th>
+					<td><input type="password" name="password" placeholder="비밀번호"></label></td>
+				</tr>
+				<tr>
+					<th><label>비밀번호 확인</th>
+					<td><input type="password" name="password check" placeholder="비밀번호 확인"></label></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th><label>이름</th>
+					<td><input type="text" name="name" placeholder="이름"></label></td>
+				</tr>
+				<tr>
+					<th>성별</th>
+					<td><label><input type="radio" name="gender" value="male">남성</label> <label><input type="radio" name="gender" value="female">여성<label></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th><label>전화번호</th>
+					<td><input type="tel" name="tel" placeholder="전화번호" pattern="\d{3}-\{4}-\{4}"></label></td>
+				</tr>
+				<tr>
+					<th><label>이메일</th>
+					<td><input type="email" name="email" placeholder="이메일"></label></td>
+				</tr>
+			</tfoot>
+		</table>
+		<input type="submit" value="전송">
+	</form>
+</body>
+</html>
