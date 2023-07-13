@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>검색창 실습</title>
+	<style>
+		.container{
+			width: 500; height: 50px; border: 5px solid black;
+			box-sizing: border-box;
+		}
+		.box{
+			float: left;  height: 100%;
+		}
+		.box1{
+			width: 100px; background-color: black;
+		}
+		.box2{
+			width: calc(100% - 100px);
+		}
+		.search-bar{
+			width: calc(100% - 2 * 10px); height: 70%; border: 5px solid black;
+			margin: auto;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="box box2">
+			<div class="search-bar"></div>
+		</div>
+		<div class="box box1"></div>
+	</div>
+</body>
+</html>
