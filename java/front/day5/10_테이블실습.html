@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>테이블 실습</title>
+	<style>
+		.box{
+			width: 800px; height: 50px;
+			border: 3px solid black;
+			border-right: none; border-left: none;
+			float: left;
+		}
+		.inner-box{
+			width: 200px; height: 100%;
+			float: left; text-align: center; line-height: 46px;
+		}
+		.box+.box{
+			margin-top: -3px;
+		}
+		.box:nth-child(1){
+			font-size: 24px; font-weight: bold;
+		}
+		.box:nth-child(2):hover, .box:nth-child(3):hover{
+			background-color: yellow;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="inner-box">번호</div>
+		<div class="inner-box">제목</div>
+		<div class="inner-box">작성자</div>
+		<div class="inner-box">조회수</div>
+	</div>
+	<div class="box">
+		<div class="inner-box">2</div>
+		<div class="inner-box">환영인사</div>
+		<div class="inner-box">홍길동</div>
+		<div class="inner-box">5</div>
+	</div>
+	<div class="box">
+		<div class="inner-box">1</div>
+		<div class="inner-box">공지사항</div>
+		<div class="inner-box">관리자</div>
+		<div class="inner-box">10</div>
+	</div>
+</body>
+</html>
