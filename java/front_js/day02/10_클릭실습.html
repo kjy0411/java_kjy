@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>페이지</title>
+</head>
+<body>
+	<button id="btn1"><</button>
+	<box class="page">
+		<span id="page"></span>
+		<span id="maxPage">/ 6</span>
+	</box>
+	<button id="btn2">></button>
+	
+	<script>
+		var now = 1;
+		var max = 16;
+		page.innerText = now;
+		maxPage.innerText = '/ ' + max;
+
+		let btn1 = document.getElementById('btn1');
+		btn1.onclick = function () {
+			if (now > 1) {
+				now--;
+			}
+			page.innerText = now;
+		};
+		let btn2 = document.getElementById('btn2');
+		btn2.onclick = function () {
+			if (now < max) {
+				now++;
+			}
+			page.innerText = now;
+		};
+
+	</script>
+</body>
+</html>
