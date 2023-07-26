@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>전체선택</title>
+	<script src="../js/jquery.min.js"></script>
+</head>
+<body>
+	<input type="checkbox" name="fruit" value="apple">사과 <br>
+	<input type="checkbox" name="fruit" value="banana">바나나 <br>
+	<input type="checkbox" name="fruit" value="orange">오렌지 <br>
+	<button class="btn-all">전체선택</button>
+	
+	<script>
+		$('.btn-all').click(function () {
+			$('[name=fruit]').prop('checked', true);
+		});
+	</script>
+</body>
+</html>
