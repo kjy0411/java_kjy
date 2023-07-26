@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jquery 요소 선택</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+		.box{
+			background-color: red; height: 300px;
+		}
+	</style>
+</head>
+<body>
+	<button class="btn1">클릭1</button>
+	<button class="btn2">클릭2</button>
+	<button class="btn3">클릭3</button>
+	<!-- hide & show -->
+	<button class="btn4">show()</button>
+	<button class="btn5">hide()</button>
+	<button class="btn6">toggle()</button>
+	<div class="box"></div>
+	<script>
+		/*
+		요소 선택
+			- $('선택자')
+		이벤트 등록
+			$('선택자').이벤트명(function(){
+					//구현
+			});
+			$('선택자').on('이벤트명', function(){
+					//구현
+			});
+			$(document).on('이벤트명', '선택자', function(){
+					//구현
+			});
+		*/
+		$('.btn1').click(function(){
+			alert('클릭1');
+		});
+		$('.btn2').on('click',function(){
+			alert('클릭2');
+		});
+		$(document).on('click','.btn3', function(){
+			alert('클릭3');
+		});
+
+		// hide & show
+		$('.btn4').click(function(){
+			$('.box').show()
+		});
+		$('.btn5').on('click',function(){
+			$('.box').hide()
+		});
+		$(document).on('click','.btn6', function(){
+			$('.box').toggle()
+		});
+	</script>
+</body>
+</html>
