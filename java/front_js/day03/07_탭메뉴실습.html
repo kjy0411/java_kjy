@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>실습</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+		.box{
+			width: 500px; height: 400px;
+		}
+		.box-red{border: 3px solid red;}
+		.box-blue{border: 3px solid blue;}
+		.box-yellow{border: 3px solid yellow;}
+	</style>
+</head>
+<body>
+	<button class="btn-red">red</button>
+	<button class="btn-blue">blue</button>
+	<button class="btn-yellow">yellow</button>
+	<div class="box box-red"></div>
+	<div class="box box-blue"></div>
+	<div class="box box-yellow"></div>
+	<script>
+		$('.box').hide();
+		$('.btn-red').click(function(){
+			$('.box').hide();
+			$('.box-red').show();
+		})
+		$('.btn-blue').click(function(){
+			$('.box').hide();
+			$('.box-blue').show();
+		})
+		$('.btn-yellow').click(function(){
+			$('.box').hide();
+			$('.box-yellow').show();
+		})
+		
+	</script>
+</body>
+</html>
