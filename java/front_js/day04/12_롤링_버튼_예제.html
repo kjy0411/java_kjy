@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>롤링 버튼</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+		.box{
+			height: 50px; border: 3px solid black; overflow: hidden;
+			width: 500px;
+			position: relative;
+		}
+		.list{
+			list-style: none; margin: 0; padding: 0;
+			width: 300%;
+		}
+		.list::after{
+			clear: both; content: ''; display: block;
+		}
+		.item{
+			height: 50px; background-color: yellow; width: calc(100% / 3); float: left;
+		}
+		.bg-pink{background-color: pink;}
+		.bg-orange{background-color:orange;}
+		.view{
+			width: calc(100% - 100px); overflow: hidden;
+		}
+		.box-btns{
+			position: absolute; top: 0px; right: 0px; bottom: 0;
+			width: 100px; background-color: white;
+		}
+		.btn{
+			width: 50px; height: 50px; border-left: 3px solid black;
+			box-sizing: border-box; float: left; text-align: center;
+			text-decoration: none; color: #000; font-size: 30px; line-height: 44px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="view">
+			<ul class="list">
+				<li class="item">1</li>
+				<li class="item bg-pink">2</li>
+				<li class="item bg-orange">3</li>
+			</ul>
+		</div>
+		<div class="box-btns">
+			<a href="#" class="btn btn-prev" onclick="moveToLeft()"><</a>
+			<a href="#" class="btn btn-next" onclick="moveToRight()">></a>
+		</div>
+	</div>
+
+	<script>
+		$('.btn').hover(function(){
+			$(this).css('background','yellow');
+		}, function(){
+			$(this).css('background','white');
+		});
+
+		$('.box').hover(function () {
+			//롤링을 중지
+			clearInterval(id);
+		}, function () {
+			//롤링을 실행
+			id = rolling();
+		})
+
+		let id = rolling();
+
+		function rolling() {
+			return setInterval(() => {
+				if ($('.item').is(':animated')) {
+					return;
+				}
+				moveToLeft();
+			}, 1500);
+		}
+		function moveToLeft() {
+			if ($('.item').is(':animated')) {
+				return;
+			}
+			let width = $('.item').width();
+			$('.item').first().animate({
+				'margin-left': `-${width}px`
+			}, 1200, function () {
+				$(this).detach().appendTo('.list').removeAttr('style');
+			});
+		}
+		function moveToRight() {
+			if ($('.item').is(':animated')) {
+				return;
+			}
+			let width = $('.item').width();
+			$('.item')
+				.last()
+				.detach()
+				.prependTo('.list')
+				.css('margin-left', `-${width}px`)
+				.animate({ 'margin-left': '0' }, 1200);
+		}
+	</script>
+</body>
+</html>
