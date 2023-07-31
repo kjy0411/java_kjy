@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>알림창 실습</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+		.box{
+			border: 3px solid black; width: 200px; height: 50px;
+			text-align: center; line-height: 50px;
+			font-size: 24px; font-weight: bold;
+		}
+		.btn{
+			width: 20px; height: 20px;
+		}
+	</style>
+</head>
+<body>
+	<button class="btn"></button>
+	<div class="box">안녕하세요</div>
+	<script>
+		$('.btn').click(function(){
+			$('.box').toggle();
+		})
+	</script>
+</body>
+</html>
