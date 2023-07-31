@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>요소 추가/삭제 실습</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+		button{width: 24px; text-align: center;}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<input type="text">
+		<button class="btn-add">+</button>
+	</div>
+	<script>
+		// 추가
+		$('.btn-add').click(function(){
+			let element = `
+			<div class="inner-box">
+				<input type="text">
+				<button class="btn-remove">-</button>
+			</div>`;
+			$('.box').append(element);
+		})
+		// 삭제
+		$(document).on('click','.btn-remove',function(){
+			$(this).parent().remove();
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>요소 추가/삭제 예제</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+		.inner-box::after{
+			clear: both; content: ''; display: block; margin-bottom: 10px;
+		}
+		.question{
+			float: left; width: calc(100% - 50px); height: 50px; box-sizing: border-box;
+			border: 2px solid black; border-radius: 5px 0 0 5px;
+		}
+		.btn{
+			float: right; width: 50px; height: 50px; box-sizing: border-box;
+			border: 2px solid black; border-radius: 0 5px 5px 0;
+			background-color: white; border-left: 0; cursor: pointer; 
+			font-size: 30px;
+		}
+		.btn:hover{background-color: yellow;}
+		.label{width: 100%; float: left; margin: 5px;}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="inner-box">
+			<label class="label">질문1</label>
+			<input type="text" placeholder="질문" class="question">
+			<button class="btn btn-add">+</button>
+		</div>
+	</div>
+	<script>
+		// 추가
+		$('.btn-add').click(function(){
+			let index = $('.inner-box').length + 1;
+			let element = `
+			<div class="inner-box">
+				<label class="label">질문1</label>
+				<input type="text" placeholder="질문" class="question">
+				<button class="btn btn-del">-</button>
+			</div>`;
+			$('.box').append(element);
+			checkNumber();
+		})
+		
+		// 삭제
+		let num;
+		$(document).on('click', '.btn-del', function(){
+			//클릭한 삭제버튼의 부모 요소를 찾아서 remove로 삭제
+			$(this).parent().remove();
+			checkNumber();
+		});
+		/*
+		질문 라벨 번호를 1부터 연속되게 하는 함수
+		*/
+		function checkNumber(){
+			$('.label').each(function(index){
+				$(this).text('질문' + (index+1));
+			})
+		}
+
+		
+	</script>
+</body>
+</html>
