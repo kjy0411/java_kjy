@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>리스트 클릭 예제</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+		.bg-yellow{background-color: yellow;}
+		.bg-orange{background-color: orange;}
+	</style>
+</head>
+<body>
+	<!-- 특정 항목을 클릭하면 해당 항목은 노란 배경 앞뒤 요소는 주황색 배경 -->
+	<ul>
+		<li>항목1</li>
+		<li>항목2</li>
+		<li>항목3</li>
+		<li>항목4</li>
+		<li>항목5</li>
+		<li>항목6</li>
+		<li>항목7</li>
+	</ul>
+	<script>
+		$('li').click(function(){
+			//모든 li태그에 배경이 흰색이 되도록 처리
+			$('li').removeClass('bg-yellow bg-orange');
+			//현재 클릭된 li태그에 배경이 노란색이 되도록 처리
+			$(this).addClass('bg-yellow');
+			//현재 클릭된 li태그 앞에 있는 요소의 배경이 주확생이 되도록 처리
+			$(this).prev().addClass('bg-orange');
+			//현재 클릭된 li태그 뒤에 있는 요소의 배경이 주확생이 되도록 처리
+			$(this).next().addClass('bg-orange');
+		});
+	</script>
+</body>
+</html>

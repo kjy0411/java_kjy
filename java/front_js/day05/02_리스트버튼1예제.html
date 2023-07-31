@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>리스트 버튼 예제</title>
+	<script src="../js/jquery.min.js"></script>
+</head>
+<body>
+	<!-- 리스트 항목 3개를 만들고 버튼을 클릭 했을 때 첫번째 항목의 배경색이 바뀌는 예제 -->
+	<ul class="list-box">
+		<li>항목1</li>
+		<li>항목2</li>
+		<li>항목3</li>
+	</ul>
+	<button class="btn">클릭</button>
+	<script>
+		$('.btn').click(()=>$('li').first().css('background-color','yellow'));
+	</script>
+</body>
+</html>

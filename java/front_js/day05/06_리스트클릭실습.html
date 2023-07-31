@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>리스트 클릭 실습</title>
+	<script src="../js/jquery.min.js"></script>
+</head>
+<body>
+	<!-- 특정 항목을 클릭하면 해당 항목은 노란 배경 앞뒤 요소는 주황색 배경 -->
+	<ul>
+		<li>항목1</li>
+		<li>항목2</li>
+		<li>항목3</li>
+		<li>항목4</li>
+		<li>항목5</li>
+		<li>항목6</li>
+		<li>항목7</li>
+	</ul>
+	<script>
+		let index, prev, next;
+		$('li').click(function(){
+			index = $(this).index();
+			prev = $(this).prev().index();
+			next = $(this).next().index();
+			$('li').css('background','white');
+			$('li').eq(index).css('background','yellow');
+			if(prev != -1){
+				$('li').eq(prev).css('background','orange');
+			}
+			if(next != -1){
+				$('li').eq(next).css('background','orange');
+			}
+		});
+	</script>
+</body>
+</html>

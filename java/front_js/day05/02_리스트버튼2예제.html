@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>리스트 버튼 예제</title>
+	<script src="../js/jquery.min.js"></script>
+</head>
+<body>
+	<!-- 앞의 예제에서 버튼 2개를 추가하여 항목2 항목3에 연결하고 셋중 하나만 배경색이 바뀌도록하는 예제 -->
+	<ul class="list-box">
+		<li>항목1</li>
+		<li>항목2</li>
+		<li>항목3</li>
+	</ul>
+	<button class="btn btn1">버튼1</button>
+	<button class="btn btn2">버튼2</button>
+	<button class="btn btn3">버튼3</button>
+	<script>
+		// 방법1
+	/*$('.btn1').click(()=>{
+			$('li').css('background-color','white');
+			$('li').eq(0).css('background-color','yellow');
+		});
+		$('.btn2').click(()=>{
+			$('li').css('background-color','white');
+			$('li').eq(1).css('background-color','yellow');
+		});
+		$('.btn3').click(()=>{
+			$('li').css('background-color','white');
+			$('li').eq(2).css('background-color','yellow');
+		});*/
+		// // 방법2
+		$('.btn').click(function(){
+			$('li').css('background-color','white');
+			// 눌린 버튼이 .btn중 몇번째인지 가져옴
+			let index = $(this).index()-1;
+			$('li').eq(index).css('background','yellow');
+		});
+	</script>
+</body>
+</html>
