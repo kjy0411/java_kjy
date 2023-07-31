@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>탭 실습</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+		.box{
+			width: 400px; height: 300px;
+		}
+		.bg-blue{background-color: blue;}
+		.bg-orange{background-color: orange;}
+	</style>
+</head>
+<body>
+	<button class="btn bg-blue">blue</button>
+	<button class="btn bg-orange">orange</button>
+	<div class="box bg-blue"></div>
+	<div class="box bg-orange"></div>
+	<script>
+		$('.box').hide();
+		$('.btn').each(function(index){
+			$(this).click(function(){
+				$('.box').hide();
+				$('.box').eq(index).show();
+			})
+		})
+	</script>
+</body>
+</html>

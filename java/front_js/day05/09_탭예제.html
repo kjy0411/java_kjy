@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>탭 실습</title>
+	<script src="../js/jquery.min.js"></script>
+	<style>
+		.box{
+			height: 200px; background-color: blue; display: none;
+		}
+		.box2{
+			height: 200px; background-color: orange;
+		}
+	</style>
+</head>
+<body>
+	<!-- select 사용 -->
+	<select name="box">
+		<option value="">선택안함</option>
+		<option value=".box1">박스1</option>
+		<option value=".box2">박스2</option>
+	</select>
+	<div class="box box1"></div>
+	<div class="box box2"></div>
+	<script>
+		$('[name=box]').click(function(){
+			let value = $(this).val();
+			$('.box').hide();
+			$(value).show();
+		})
+	</script>
+</body>
+</html>
