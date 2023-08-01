@@ -58,7 +58,7 @@
 			if(!checkEmail()){
 				ok = false;
 			}
-
+			
 			return ok;
 		});
 
@@ -75,7 +75,7 @@
 		};
 		function checkPw(){
 			let pw = $('[name=pw]').val();
-			let regex = /^[a-zA-z0-9!@#$]{8,20}$/;
+			let regex = /^[a-zA-Z0-9!@#$]{8,20}$/;
 			if(regex.test(pw)){
 				return true;
 			}else{
