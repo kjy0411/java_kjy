@@ -62,7 +62,7 @@ NO ACTION	: 제약조건 옵션을 선택하지 않은 경우 자동으로 선�
 SET DEFAULT	: 참조되고 있으면 기본키의 값이 변하면 참조하는 테이블의 값이 기본값으로 바뀜
 */
 -- 대학생(학번, 이름, 학과)
-create table if not exists student(
+create table if not exists course.`student`(
 	num char(10) not null,
     name varchar(20) not null,
     major varchar(20) not null,

@@ -1,7 +1,7 @@
 /*
 DML : 데이터를 추가/수정/삭제/조회할 때 사용 : C(create)R(Read)U(update)D(Delete)
 insert	: 데이터를 추가
-insert 방법1 : insert ... values : 데이터 전체를 알고있는 경우
+insert 방법1 : insert ... values : 추가할 데이터를 다 알고 있는 경우 
 
 -- 테이블명만 입력하는 경우 : 속성 순서에 맞춰서 값들을 넣어줘야함 
 insert into 테이블명 values(값1, 값2, ..., 값n);

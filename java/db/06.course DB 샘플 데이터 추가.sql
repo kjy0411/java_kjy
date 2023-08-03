@@ -28,11 +28,11 @@ values ('2023160001','홍길동','컴퓨터공학과'),
 */ 
 insert subject(code, point, time, title) values
 ('MSC001', 3, 4, '대학수학기초'),
-('MSC002', 3, 3,' 대학물리'),
-('BSE001', 2, 3,' 영어'),
-('BSE002', 2, 3,' 글쓰기'),
-('COM001', 3, 4,' 컴퓨터개론'),
-('MED001', 3, 4,' 미디어개론');
+('MSC002', 3, 3, '대학물리'),
+('BSE001', 2, 3, '영어'),
+('BSE002', 2, 3, '글쓰기'),
+('COM001', 3, 4, '컴퓨터개론'),
+('MED001', 3, 4, '미디어개론');
 
 /*
 다음 강의 정보를 추가하는 쿼리를 작성하고 실행하세요.
@@ -68,9 +68,9 @@ from
 where
 	major='컴퓨터공학과';
 -- 모든 학생이 영어를 수강    
-    insert into course(subject_code, student_num, room, professor_name, schedule, year, semester)
+insert into course(subject_code, student_num, room, professor_name, schedule, year, semester)
 select
-	'MSC001', num, '본관 101호', '김영철', '화1,2,3', 2023, 1 
+	'BSE001', num, '본관 101호', '김영철', '화1,2,3', 2023, 1 
 from
 	student;
 -- 모든 컴공학생이 컴퓨터 개론을 수강
