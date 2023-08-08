@@ -131,7 +131,17 @@ INSERT INTO ORDER_LIST(OL_AMOUNT, OL_PRICE, OL_OR_NUM, OL_OP_NUM)
     ON OP_PR_CODE = PR_CODE
     WHERE
 		OP_PR_CODE = 'ABC002' AND OP_NAME = '기계식';
-        
+-- 3. 옵션 테이블에 수정(수량)
+UPDATE `OPTION` 
+SET 
+    OP_AMOUNT = OP_AMOUNT - 2
+WHERE
+    OP_PR_CODE = 'ABC001' AND OP_NAME = '무선';
+UPDATE `OPTION` 
+SET 
+    OP_AMOUNT = OP_AMOUNT - 3
+WHERE
+    OP_PR_CODE = 'ABC002' AND OP_NAME = '기계식';
 -- abc회원이 제품을 받고 구매 확정을 눌렀을 때 쿼리
 -- 주문에 구매확정으로 수정
 UPDATE `ORDER` SET OR_STATE = '구매 확정' WHERE OR_NUM = 1;
