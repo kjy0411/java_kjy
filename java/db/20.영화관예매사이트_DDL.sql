@@ -13,7 +13,7 @@ CREATE TABLE `movie` (
 	`mo_opening_date`	date	NULL,
 	`mo_running_time`	int	NOT NULL,
 	`mo_plot`	longtext	NOT NULL,
-	`ms_reservation_rate`	int	NOT NULL DEFAULT 0,
+	`mo_reservation_rate`	int	NOT NULL DEFAULT 0,
 	`mo_fi_num`	int	NOT NULL,
 	`mo_ag_name`	varchar(10)	NOT NULL
 );
@@ -50,7 +50,7 @@ DROP TABLE IF EXISTS `film_person`;
 
 CREATE TABLE `film_person` (
 	`fp_num`	int	NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	`fp_name`	varchar(20)	NOT NULL,
+	`fp_name`	varchar(50)	NOT NULL,
 	`fp_birthday`	date	NOT NULL,
 	`fp_thumbnail`	varchar(50)	NULL,
 	`fp_agency`	varchar(20)	NULL,
@@ -94,7 +94,7 @@ DROP TABLE IF EXISTS `theater`;
 CREATE TABLE `theater` (
 	`th_num`	int	NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	`th_name`	varchar(20)	NOT NULL,
-	`re_address`	varchar(50)	NOT NULL,
+	`th_address`	varchar(50)	NOT NULL,
 	`th_total_screen`	int	NOT NULL DEFAULT 1,
 	`th_total_seat`	int	NOT NULL,
 	`th_re_name`	varchar(15)	NOT NULL
@@ -123,7 +123,7 @@ CREATE TABLE `seat` (
 	`se_row`	char(1)	NULL,
 	`se_col`	varchar(2)	NULL,
 	`se_state`	varchar(10)	NULL DEFAULT '일반',	-- 일반/커플/스위트
-	`se_sc_num2`	int	NOT NULL
+	`se_sc_num`	int	NOT NULL
 );
 
 DROP TABLE IF EXISTS `movie_schedule`;
@@ -157,7 +157,8 @@ CREATE TABLE `member` (
 	`me_pw`	varchar(20)	NOT NULL,
 	`me_name`	varchar(20)	NOT NULL,
 	`me_phone`	varchar(15)	NOT NULL,
-	`me_birthday`	date	NOT NULL
+	`me_birthday`	date	NOT NULL,
+    `me_authority`	varchar(5)	NOT NULL DEFAULT 'USER'
 );
 
 DROP TABLE IF EXISTS `reservation_list`;
@@ -288,7 +289,7 @@ REFERENCES `theater` (
 );
 
 ALTER TABLE `seat` ADD CONSTRAINT `FK_screen_TO_seat_1` FOREIGN KEY (
-	`se_sc_num2`
+	`se_sc_num`
 )
 REFERENCES `screen` (
 	`sc_num`
