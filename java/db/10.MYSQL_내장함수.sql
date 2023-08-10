@@ -37,6 +37,24 @@ datediff(날짜1, 날짜2);
 : 날짜1과 날짜2 사이의 차이를 일 기준을 반환
 timdiff(날짜1, 날짜2);
 : 날짜1과 날짜2 사이의 차이를 시,분,초로 표현
+
+----- 순위를 매김 -----
+row_number() over(oder by 속성 속성방법);
+홍길동	40	1
+임꺽정	40	2
+유재석	40	3
+고길동	45	4
+rank() over(oder by 속성 속성방법);
+홍길동	40	1
+임꺽정	40	1
+유재석	40	1
+고길동	45	4
+dense_rank() over(oder by 속성 속성방법);
+홍길동	40	1
+임꺽정	40	1
+유재석	40	1
+고길동	45	2
+
 */
 select num, if(major = '컴퓨터공학과', '컴공', '컴공아님') as 전공 from student;
 select title as 과목명, ifnull(time,0) as 시수 from subject;
