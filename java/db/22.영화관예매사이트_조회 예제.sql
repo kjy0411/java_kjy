@@ -85,7 +85,7 @@ WHERE
 			JOIN RESERVATION_LIST ON RV_NUM = RL_RV_NUM
 			WHERE RV_MS_NUM = 8
     );
-
+-- CGV강남 영화관에서 콘크리트 유토피아 20:50에 예매 가능한 좌석을 조회하는 쿼리(OUTER JOIN 이용)
 SELECT
 	SE_NAME
 FROM
@@ -97,10 +97,182 @@ FROM
 		JOIN
 	MOVIE ON MO_NUM = MS_MO_NUM
 		LEFT JOIN
-	RESERVATION_LIST ON SE_NUM = RL_SE_NUM    
-WHERE MO_TITLE = '콘크리트 유토피아' AND MS_START_TIME = '20:50:00' AND SE_NAME NOT IN(
-		SELECT SE_NAME FROM RESERVATION
-			JOIN RESERVATION_LIST ON RV_NUM = RL_RV_NUM
-            JOIN SEAT ON SE_NUM = RL_SE_NUM
-			WHERE RV_MS_NUM = 8
-    );
+	RESERVATION_LIST ON SE_NUM = RL_SE_NUM
+WHERE MO_TITLE = '콘크리트 유토피아' AND MS_START_TIME = '20:50:00' AND RL_SE_NUM IS NULL;
+
+-- CGV강남 영화관에서 콘크리트 유토피아 20:50에 있는 좌석들과 좌석들 예매 여부를 조회하는 쿼리(OUTER JOIN 이용)
+SELECT
+	MO_TITLE AS 영화제목,
+    MS_START_TIME AS 상영시간,
+	SE_NAME AS 좌석명,
+    CASE WHEN RL_SE_NUM IS NULL 
+		THEN 'O'
+        ELSE 'X'
+	END AS '예매 가능 여부'
+FROM
+	SEAT
+    	JOIN
+	SCREEN ON SC_NUM = SE_SC_NUM
+    	JOIN
+	MOVIE_SCHEDULE ON SC_NUM = MS_SC_NUM
+		JOIN
+	MOVIE ON MO_NUM = MS_MO_NUM
+		LEFT JOIN
+	RESERVATION_LIST ON SE_NUM = RL_SE_NUM
+WHERE MO_TITLE = '콘크리트 유토피아' AND MS_START_TIME = '20:50:00';
+
+-- abc123 회원이 관람했던 영화 목록을 조회하는 쿼리
+SELECT
+	MO_TITLE AS 'abc123회원의 관람 영화'
+FROM
+	RESERVATION
+		JOIN
+	MOVIE_SCHEDULE ON MS_NUM = RV_MS_NUM
+		JOIN
+	MOVIE ON MO_NUM = MS_MO_NUM
+WHERE RV_ME_ID = 'abc123' AND NOW() >= CONCAT(MS_DATE, ' ', MS_START_TIME)
+GROUP BY MO_NUM; -- 같은 영화를 여러번 봐도 관람 영화 목록에는 1번만 출력된다
+
+-- 예약 가능한 모든 상영 영화 정보를 조회하는 쿼리
+SELECT
+	MO_TITLE AS 영화제목,
+    MS_DATE AS 상영일,
+    MS_START_TIME AS 상영시간,
+    MO_AG_NAME AS 연령제한,
+    MS_POSSIBLE_SEAT AS '좌석 수'
+FROM MOVIE_SCHEDULE
+		JOIN
+	MOVIE ON MO_NUM = MS_MO_NUM
+WHERE NOW()< CONCAT(MS_DATE, ' ', MS_START_TIME) AND MS_POSSIBLE_SEAT > 0;
+
+-- CGV에서 이벤트로 한 영화를 여러번 본 회원중에 가장 많이 본 회원 3명을 뽑으려고 한다.
+-- 각 영화를 각 회원이 몇번 봤는지 조회하는 쿼리
+SELECT 
+	MO_TITLE AS 영화,
+ 	RV_ME_ID AS 아이디,
+ 	COUNT(RV_NUM) AS '회 수'
+FROM
+	RESERVATION
+		JOIN
+	MOVIE_SCHEDULE ON MS_NUM = RV_MS_NUM
+		JOIN
+	MOVIE ON MO_NUM = MS_MO_NUM
+WHERE
+	NOW() >= CONCAT(MS_DATE, ' ', MS_START_TIME)
+GROUP BY RV_ME_ID, MS_MO_NUM;
+
+-- 회원들 중 금액 사용이 가장 많은 3명의 회원을 조회하는 쿼리
+-- 사용 금액이 같은 회원이 여러명인 경우 누구는 순위에 포함되고 누구는 포함되지 않을 수 있음
+SELECT 
+    ME_ID AS 회원,
+    SUM(CASE
+        WHEN NOW() >= CONCAT(MS_DATE, ' ', MS_START_TIME)
+        THEN RV_PRICE
+        ELSE 0
+    END) AS '누적 금액'
+FROM
+    RESERVATION
+        JOIN
+    MOVIE_SCHEDULE ON MS_NUM = RV_MS_NUM
+        RIGHT JOIN
+    MEMBER ON ME_ID = RV_ME_ID
+GROUP BY RV_ME_ID
+ORDER BY SUM(RV_PRICE) DESC
+LIMIT 3;
+
+-- 회원들 중 금액 사용이 가장 많은 3명의 회원을 조회하는 쿼리
+-- 사용 금액이 같은 회원이 여러명인 경우 여러명 모두 등수에 포함되면 모두 받을 수 있다.
+SELECT * FROM (
+	SELECT 
+		ME_ID AS 회원,
+		누적금액,
+		RANK() OVER(ORDER BY 누적금액 DESC) AS 순위
+	FROM
+		(SELECT *, SUM(CASE
+			WHEN NOW() >= CONCAT(MS_DATE, ' ', MS_START_TIME)
+			THEN RV_PRICE
+			ELSE 0
+		END) AS '누적금액' FROM
+		RESERVATION
+			JOIN
+		MOVIE_SCHEDULE ON MS_NUM = RV_MS_NUM
+			RIGHT JOIN
+		MEMBER ON ME_ID = RV_ME_ID
+		GROUP BY RV_ME_ID
+		) AS A
+	) AS B
+WHERE 순위 <= 3;
+
+-- 영화인별로 배우로 참여한 영화 개수를 조회하는 쿼리
+SELECT
+	FP_NAME AS 영화인,
+    COUNT(RO_NUM) AS '참여한 영화수(배우)'
+FROM
+	FILM_PERSON
+		LEFT JOIN
+	(SELECT * FROM ROLE WHERE RO_ROLE = '배우') AS ROLE2 ON FP_NUM = RO_FP_NUM
+GROUP BY
+	FP_NUM;
+    
+-- 각 스케쥴 별 예약한 좌석 수를 조회하는 쿼리
+-- RESERVATION 이용
+SELECT
+	MO_TITLE AS 영화제목,
+    MS_DATE AS 상영일,
+    MS_START_TIME AS 상영시간,
+    IFNULL(SUM(RV_ADULT + RV_TEENAGER), 0) AS '예약된 좌석수'
+FROM
+	MOVIE_SCHEDULE
+		LEFT JOIN
+	RESERVATION ON MS_NUM = RV_MS_NUM
+		JOIN
+	MOVIE ON MO_NUM = MS_MO_NUM
+GROUP BY
+	MS_NUM;
+-- SCREEN 이용
+SELECT
+	MO_TITLE AS 영화,
+    MS_DATE AS 상영일,
+    MS_START_TIME AS 상영시간,
+    SC_TOTAL_SEAT - MS_POSSIBLE_SEAT AS '예약 좌석수'
+FROM
+	MOVIE_SCHEDULE
+		LEFT JOIN
+	SCREEN ON SC_NUM = MS_SC_NUM
+		JOIN
+	MOVIE ON MO_NUM = MS_MO_NUM;
+    
+-- 영화관별 상영 영화 목록을 보여주는 쿼리
+SELECT
+	TH_NAME AS 영화관,
+    MO_TITLE AS 영화
+FROM
+	MOVIE_SCHEDULE
+		JOIN
+	SCREEN ON SC_NUM = MS_SC_NUM	-- 영화관과 연결을 위해 먼저 상영관과 연결
+		JOIN
+	THEATER ON TH_NUM = SC_TH_NUM	-- 영화관명을 조회하기 위해 영화관 연결
+		JOIN
+	MOVIE ON MO_NUM = MS_MO_NUM		-- 영화 제목을 조회하기 위해 연결
+WHERE
+	NOW() < CONCAT(MS_DATE, ' ', MS_START_TIME)
+GROUP BY
+	TH_NUM, MO_NUM;
+    
+-- 오펜하이머를 상영하는 영화관을 조회하는 쿼리
+SELECT
+    TH_NAME AS 영화관
+FROM
+	MOVIE_SCHEDULE
+		JOIN
+	SCREEN ON SC_NUM = MS_SC_NUM
+		JOIN
+	THEATER ON TH_NUM = SC_TH_NUM
+		JOIN
+	MOVIE ON MO_NUM = MS_MO_NUM
+WHERE
+	MO_TITLE = '오펜하이머' AND NOW() <= CONCAT(MS_DATE, ' ', MS_START_TIME)
+GROUP BY
+	MO_NUM, TH_NUM;
+    
+-- 
