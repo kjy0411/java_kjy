@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스탑워치3</title>
+    <script src="../js/jquery.min.js"></script>
+    <style>
+        .box{
+            width: 120px; height: 50px;
+            border: 1px solid black;
+            text-align: center; line-height: 50px;
+        }
+    </style>    
+</head>
+<body>
+    <div class="container">
+        <div class="box box-timer" id="timer">00:00:00:00</div>
+        <button class="btn-move">시작/기록</button>
+        <button class="btn-reset">리셋</button>
+        <div class="box box-record">00:00:00:00</div>
+        <div class="box box-record">00:00:00:00</div>
+        <div class="box box-record">00:00:00:00</div>
+    </div>
+    <script>
+        let h = 0, m = 0, s = 0, ms = 0, check = 0, arr = [];	
+        let intervalId = null;
+        let element =`<div class="box box-record">00:00:00:00</div>`;
+		
+        $('.btn-reset').click(function(){
+            stop(intervalId);
+            h = 0, m = 0, s= 0, ms = 0, check = 0, arr = [];
+            deleteBox();
+            resetBox();
+            timer.innerText = getTime(h, m, s, ms);
+        })
+
+        $('.btn-move').click(function(){
+            if(check == 0){
+                check = 1;
+                intervalId = start();
+            }else{
+                if(arr.length < 3){
+                    arr.push(getTime(h, m, s, ms));
+                }else{
+                    $('.container').append(element)
+                    arr.push(getTime(h, m, s, ms));
+                }
+                printBox();
+            }
+        });
+        function deleteBox(){
+            $('.box-record').remove();
+            $('.container').append(element);
+            $('.container').append(element);
+            $('.container').append(element);
+        }
+        function resetBox(){
+            $('.box-record').eq(0).text('00:00:00:00');
+            $('.box-record').eq(1).text('00:00:00:00');
+            $('.box-record').eq(2).text('00:00:00:00');
+        }
+        function printBox(){
+            for(i = 0; i < arr.length + 1; i++){
+                $('.box-record').eq(arr.length - i - 1).text(arr[i]);
+            }
+           }
+		function start(){
+			return setInterval(function(){
+                    ms++;
+                    if(ms == 100){
+                        s++;
+                        ms = 0;
+                    }
+                    if(s == 60){
+                        m++;
+                        s = 0;
+                    }
+                    if(m == 60){
+                        h++
+                        m = 0;
+                    }
+                    timer.innerText = getTime(h, m, s, ms);
+                }, 10);
+		}
+        function stop(id){
+			clearInterval(id);
+		}
+		function getTime(h, m, s, ms){
+			return ''+fillZero(h) + ':' + fillZero(m) + ':' + fillZero(s) + ':' + fillZero(ms);
+		}
+		function fillZero(num){
+			return num < 10? '0'+num : num;
+		}
+
+    </script>
+</body>
+</html>

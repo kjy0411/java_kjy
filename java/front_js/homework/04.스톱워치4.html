@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스탑워치4</title>
+    <script src="../js/jquery.min.js"></script>
+    <style>
+        .container{
+           text-align: center;
+        }
+        .center{
+            width: 300px; display: inline-block
+        }
+        .box-timer{
+            margin: 2px 0 0;
+            width: 100%; height: 50px; display: inline-block;
+            border: 2px solid black;
+            font-size: 21px; box-sizing: border-box;
+            text-align: center; line-height: 46px;
+        }
+        .btn{
+            margin: 10px 3px 10px 0;
+            width: calc(300px / 2 - 3px); height: 30px;
+            float: left;
+        }
+        .record{
+            padding: 10px;
+            width: 100%; display: inline-block;
+            border: 2px solid black; box-sizing: border-box;
+        }
+        .box-record{
+            height: 50px;
+            text-align: center; line-height: 50px;
+        }
+    </style>    
+</head>
+<body>
+    <div class="container">
+        <div class="center">
+            <div class="box-timer" id="timer">00:00:00</div><br>
+            <button class="btn btn-record">랩</button>
+            <button class="btn btn-toggle">시작</button>
+            <div class="record">
+                <div class="box-record blank"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let m = 0, s = 0, ms = 0, check = 0, arr = [];	
+        let intervalId = null;
+        let element =`<div class="box-record"></div>`;
+        let el =`<div class="box-record blank"></div>`;
+
+            
+        $('.btn-record').click(function(){
+            if(check == 0){
+                stop(intervalId);
+                m = 0, s= 0, ms = 0, check = 0, arr = [];
+                deleteBox();
+                $('.record').append(el);
+                timer.innerText = getTime(m, s, ms);
+            }else{
+                $('.blank').remove();
+                $('.record').append(element);
+                arr.push(getTime(m, s, ms));
+                printBox();
+            }
+        })
+        $('.btn-toggle').click(function(){
+            if(check == 0){
+                check = 1;
+                intervalId = start();
+                $(this).text('중지');
+                $('.btn-record').text('랩');
+            }else{
+                check = 0;
+                stop(intervalId);
+                $(this).text('시작');
+                $('.btn-record').text('재설정');
+            }
+        });
+        function deleteBox(){
+            $('.box-record').remove();
+        }
+        function resetBox(){
+            $('.box-record').eq(0).text('00:00:00');
+            $('.box-record').eq(1).text('00:00:00');
+            $('.box-record').eq(2).text('00:00:00');
+        }
+        function printBox(){
+            for(i = 0; i < arr.length + 1; i++){
+                $('.box-record').eq(arr.length - i - 1).text(arr[i]);
+            }
+           }
+		function start(){
+			return setInterval(function(){
+                    ms++;
+                    if(ms == 100){
+                        s++;
+                        ms = 0;
+                    }
+                    if(s == 60){
+                        m++;
+                        s = 0;
+                    }
+                    timer.innerText = getTime(m, s, ms);
+                }, 10);
+		}
+        function stop(id){
+			clearInterval(id);
+		}
+		function getTime(m, s, ms){
+			return '' + fillZero(m) + ':' + fillZero(s) + ':' + fillZero(ms);
+		}
+		function fillZero(num){
+			return num < 10? '0'+num : num;
+		}
+
+    </script>
+</body>
+</html>

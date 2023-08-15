@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스탑워치1</title>
+    <script src="../js/jquery.min.js"></script>
+    <style>
+        .box-timer{
+            width: 120px; height: 50px;
+            border: 1px solid black;
+            text-align: center; line-height: 50px;
+        }
+    </style>    
+</head>
+<body>
+    <div class="container">
+        <div class="box-timer" id="timer"></div>
+        <button class="btn-toggle">시작/중지</button>
+        <button class="btn-reset">리셋</button>
+    </div>
+    <script>
+        let h = 0, m = 0, s = 0, ms = 0, check = 0;	
+        let intervalId = null;
+        
+        timer.innerText = getTime(h, m, s, ms);
+        $('.btn-reset').click(function(){
+            stop(intervalId);
+            h = 0, m = 0, s= 0, ms = 0, check = 0;
+            timer.innerText = getTime(h, m, s, ms);
+        })
+
+        $('.btn-toggle').click(function(){
+            if(check == 0){
+                check = 1;
+                intervalId = start();
+            }else{
+                check = 0;
+                stop(intervalId);
+            }
+        });
+		function start(){
+			return setInterval(function(){
+                    ms++;
+                    if(ms == 100){
+                        s++;
+                        ms = 0;
+                    }
+                    if(s == 60){
+                        m++;
+                        s = 0;
+                    }
+                    if(m == 60){
+                        h++
+                        m = 0;
+                    }
+                    timer.innerText = getTime(h, m, s, ms);
+                }, 10);
+		}
+        function stop(id){
+			clearInterval(id);
+		}
+		function getTime(h, m, s, ms){
+			return ''+fillZero(h) + ':' + fillZero(m) + ':' + fillZero(s) + ':' + fillZero(ms);
+		}
+		function fillZero(num){
+			return num < 10? '0'+num : num;
+		}
+
+    </script>
+</body>
+</html>
