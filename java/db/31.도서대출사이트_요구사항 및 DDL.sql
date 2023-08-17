@@ -47,10 +47,10 @@ CREATE TABLE `member` (
 	`me_pw`	varchar(255)	NOT NULL,
 	`me_phone`	char(13)	NOT NULL,
 	`me_birthday`	date	NOT NULL,
-	`me__authority`	varchar(5)	NOT NULL DEFAULT 'USER',
+	`me_authority`	varchar(5)	NOT NULL DEFAULT 'USER',
 	`me_book_count`	int	NOT NULL DEFAULT 0,
-	`me_total_overdue`	int	NOT NULL DEFAULT 0,
-	`me_apply_overdue`	int	NULL
+	`me_total_overdue`	int		NOT NULL DEFAULT 0,
+	`me_apply_overdue`	date	NULL
 );
 DROP TABLE IF EXISTS `book`;
 
