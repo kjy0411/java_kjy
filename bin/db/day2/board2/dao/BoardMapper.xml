@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="db.day2.board2.dao.BoardDAO">
+  <insert id="insertBoard">
+  	insert into board(bo_title, bo_me_id) values(#{title}, #{id})
+  </insert>
+  <select id="printBoard" resultType="db.day2.board2.vo.BoardVO">
+  	select * from board where bo_me_id = #{id}
+  </select>
+  <update id="updateBoard">
+  	update board set bo_title = #{title} where bo_num = #{num}
+  </update>
+  <delete id="deleteBoard">
+  	delete from board where bo_num = #{num}
+  </delete>
+  <select id="printBoardList" resultType="db.day2.board2.vo.BoardVO">
+  	select * from board
+  </select>
+</mapper>
