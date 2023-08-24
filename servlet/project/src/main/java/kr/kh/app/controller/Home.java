@@ -28,7 +28,7 @@ public class Home extends HttpServlet {
 		//서버에서 화면에게 데이터를 전송
 		request.setAttribute("mgs", "Hello");
 		//미리 만들어 놓은 home.jsp와 연결
-		request.getRequestDispatcher("WEB-INF/views/home.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/home.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -12,4 +12,6 @@ public interface MemberDAO {
 
 	void deleteMember(@Param("me_id")String me_id);
 
+	void updateCounter(@Param("member")MemberVO member);
+
 }

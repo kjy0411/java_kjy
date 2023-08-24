@@ -12,4 +12,7 @@
 	<delete id="deleteMember">
 		delete from member where me_id = #{me_id}
 	</delete>
+	<update id="updateCounter">
+		update member set me_board_count = (select count(*) from board where bo_me_id = #{member.me_id}) where me_id = #{member.me_id}
+	</update>
 </mapper>

@@ -6,30 +6,30 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import kr.kh.app.service.MemberService;
-import kr.kh.app.service.MemberServiceImp;
-import kr.kh.app.vo.MemberVO;
+import kr.kh.app.service.BoardService;
+import kr.kh.app.service.BoardServiceImp;
+import kr.kh.app.vo.BoardVO;
 
-public class Signup extends HttpServlet {
+public class BoardInsert extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private MemberService memberService = new MemberServiceImp();
-    public Signup() {
+	private BoardService boardService = new BoardServiceImp();
+    public BoardInsert() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/views/signup.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/board/insert.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String title = request.getParameter("title");
 		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
-		MemberVO member = new MemberVO(id,pw);
+		BoardVO board = new BoardVO(title, id);
 		boolean ok = false;
-		if(memberService.signup(member)) {
+		if(boardService.insertBoard(board)) {
 			ok = true;
 		}
-		request.setAttribute("signupOk", ok);
+		request.setAttribute("ok", ok);
 		doGet(request, response);
 	}
 
