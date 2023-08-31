@@ -1,5 +1,7 @@
 package kr.kh.spring.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.kh.spring.pagination.Criteria;
+import kr.kh.spring.pagination.PageMaker;
 import kr.kh.spring.service.BoardService;
 import kr.kh.spring.util.Message;
 import kr.kh.spring.vo.BoardVO;
@@ -22,7 +26,13 @@ public class BoardController {
 	BoardService boardService;
 	
 	@GetMapping("/list")
-	public String list() {
+	public String list(Model model, Criteria cri) {
+		cri.setPerPageNum(2);
+		//현재 페이지에 맞는 게시글을 가져와야함
+		List<BoardVO> list = boardService.getBoardList(cri);
+		System.out.println(list);
+		
+		model.addAttribute("list", list);
 		return "/board/list";
 	}
 	
@@ -40,7 +50,6 @@ public class BoardController {
 		}else {
 			msg = new Message("/board/list", "게시글을 등록하지 못했습니다.");
 		}
-		System.out.println(board);
 		model.addAttribute("msg",msg);
 		return "message";
 	}
