@@ -25,7 +25,7 @@ public class Criteria {
 		return "?page=" + page;	//?변수명=값&변수명=값
 	}
 	//현재 페이지정보를 사용
-	public String getCurUrl() {
+	public String getCurrentUrl() {
 		return "?page=" + page;
 	}
 }
