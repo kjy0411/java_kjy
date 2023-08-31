@@ -13,7 +13,7 @@ public class HomeController {
 		//화면에 데이터를 전송하는 방법 model에 담아서 전송
 		/*model.addAttribute("화면에서 사용할 이름", 전송할값);*/
 		model.addAttribute("name", "abc");
-		return "home";
+		return "/main/home";
 	}
 
 	@RequestMapping(value="/test1")
