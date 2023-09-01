@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.kh.spring.controller.BoardController;
 import kr.kh.spring.dao.BoardDAO;
 import kr.kh.spring.pagination.Criteria;
 import kr.kh.spring.util.UploadFileUtils;
