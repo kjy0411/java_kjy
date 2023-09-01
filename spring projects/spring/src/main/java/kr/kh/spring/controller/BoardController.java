@@ -68,7 +68,7 @@ public class BoardController {
 	public String update(Model model, Integer bo_num, HttpSession session) {
 		BoardVO board = boardService.getBoardList(bo_num);
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		if(user == null || board == null || user.getMe_id().equals(board.getBo_me_id())) {
+		if(user == null || board == null || !user.getMe_id().equals(board.getBo_me_id())) {
 			Message msg = new Message("/board/list", "잘못된 접근입니다.");
 			model.addAttribute("msg", msg);
 			return "message";
@@ -84,6 +84,18 @@ public class BoardController {
 			msg = new Message("/board/detail?bo_num="+board.getBo_num(), "게시글을 수정했습니다.");
 		}else {
 			msg = new Message("/board/update?bo_num="+board.getBo_num(), "게시글을 수정하지 못했습니다.");			
+		}
+		model.addAttribute("msg", msg);
+		return "message";
+	}
+	@GetMapping("/delete")
+	public String delete(Model model, HttpSession session, Integer bo_num) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		Message msg;
+		if(boardService.deleteBoard(bo_num, user)) {
+			msg = new Message("/board/list", "게시글을 삭제했습니다.");
+		}else {
+			msg = new Message("/board/list", "잘못된 접근입니다.");
 		}
 		model.addAttribute("msg", msg);
 		return "message";
