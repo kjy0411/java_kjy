@@ -16,7 +16,7 @@
 		<result property="bo_contents" column="bo_contents"/>
 		<result property="bo_up_date" column="bo_up_date"/>
 		<result property="bo_reg_date" column="bo_reg_date"/>
-		<collection property="files" ofType="kr.kh.spring.vo.fileVO" column="bo_num" select="selectFileList"></collection>
+		<collection property="fileVoList" ofType="kr.kh.spring.vo.fileVO" column="bo_num" select="selectFileList"></collection>
 	</resultMap>
 	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="board.bo_num">
 		insert into board(bo_num, bo_ori_num, bo_title, bo_contents, bo_me_id)
