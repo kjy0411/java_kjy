@@ -6,13 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.kh.study.dao.BoardDAO;
+import kr.kh.study.dao.MemberDAO;
 import kr.kh.study.vo.BoardVO;
+import kr.kh.study.vo.MemberVO;
 
 @Service
 public class BoardServiceImp implements BoardService{
 	
 	@Autowired
 	private BoardDAO boardDao;
+	
+	@Autowired
+	private MemberDAO memberDao;
 
 	@Override
 	public List<BoardVO> getBoardList() {
@@ -41,5 +46,23 @@ public class BoardServiceImp implements BoardService{
 		}
 		//다오에게 게시글 번호를 주면서 조회수를 1증가시키라고 요청
 		boardDao.updateViews(bo_num);
+	}
+
+	@Override
+	public boolean insertBoard(BoardVO board, MemberVO user) {
+		if(user == null || user.getMe_id() == null) {
+			return false;
+		}
+		if(board == null || board.getBo_title() == null || board.getBo_title().length() == 0) {
+			return false;
+		}
+		
+		MemberVO dbMember = memberDao.selectMember(user.getMe_id());
+		if(dbMember == null) {
+			return false;
+		}
+		board.setBo_me_id(user.getMe_id());
+		boolean res = boardDao.insertBoard(board);
+		return res;
 	}
 }

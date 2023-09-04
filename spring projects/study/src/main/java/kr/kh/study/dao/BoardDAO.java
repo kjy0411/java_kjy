@@ -14,4 +14,6 @@ public interface BoardDAO {
 
 	void updateViews(@Param("bo_num")Integer bo_num);
 
+	boolean insertBoard(@Param("board")BoardVO board);
+
 }
