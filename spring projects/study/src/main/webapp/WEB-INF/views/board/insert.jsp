@@ -11,7 +11,6 @@
 	<h1>게시글 등록</h1>
 	<form action="<c:url value='/board/insert'/>" method="post">
 		<input type="text" name="bo_title" placeholder="제목"> <br>
-		<input type="text" name="bo_me_id" value="작성자 : ${user.me_id}" readonly> <br>
 		<textarea rows="20" cols="30" name="bo_contents" placeholder="내용"></textarea> <br>
 		<button>등록</button>
 	</form>
