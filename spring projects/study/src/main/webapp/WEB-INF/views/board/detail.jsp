@@ -15,6 +15,9 @@
 	<hr>
 	<div>${board.bo_contents }</div>
 	<a href="<c:url value='/board/list'/>">목록으로</a>
-	<a href="<c:url value='/board/update?bo_num=${board.bo_num }'/>">수정</a>
+	<c:if test="${user.me_id == board.bo_me_id}">
+		<a href="<c:url value='/board/update?bo_num=${board.bo_num }'/>">수정</a>
+		<a href="<c:url value='/board/delete?bo_num=${board.bo_num }'/>">삭제</a>
+	</c:if>
 </body>
 </html>

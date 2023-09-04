@@ -76,4 +76,20 @@ public class BoardServiceImp implements BoardService{
 		boolean res = boardDao.updateBoard(board);
 		return res;
 	}
+
+	@Override
+	public boolean delete(Integer bo_num, MemberVO user) {
+		if(user == null || user.getMe_id() == null) {
+			return false;
+		}
+		if(bo_num == null) {
+			return false;
+		}
+		BoardVO dbBoard = boardDao.selectBoard(bo_num);
+		if(dbBoard == null || !dbBoard.getBo_me_id().equals(user.getMe_id())) {
+			return false;
+		}
+		boolean res = boardDao.deleteBoard(bo_num);
+		return res;
+	}
 }
