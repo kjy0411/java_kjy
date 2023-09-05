@@ -67,7 +67,10 @@ public class BoardController {
 	@GetMapping("/board/update")
 	public String boardUpdate(Model model, Integer bo_num) {		
 		BoardVO board = boardService.getBoard(bo_num);
+		List<FileVO> fileList = boardService.getFileList(bo_num);
+		
 		model.addAttribute("board", board);
+		model.addAttribute("fileList", fileList);
 		return "/board/update";
 	}
 	
