@@ -22,5 +22,6 @@ public interface BoardService {
 
 	boolean delete(Integer bo_num, MemberVO user);
 
+	List<FileVO> getFileList(Integer bo_num);
 
 }

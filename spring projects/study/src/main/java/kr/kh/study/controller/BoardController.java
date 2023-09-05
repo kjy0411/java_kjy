@@ -35,8 +35,11 @@ public class BoardController {
 		boardService.updateViews(bo_num);
 		//서비스에게 게시글 번호를 주면서 게시글을 가져오라고 요청
 		BoardVO board = boardService.getBoard(bo_num);
-		//가져온 게시글을 화면에 전송
+		//서비스에게 게시글 번호를 주면서 첨부파일 리스트를 가져오라고 요청
+		List<FileVO> fileList = boardService.getFileList(bo_num);
+		//가져온 게시글과 첨부파일 리스트를 화면에 전송
 		model.addAttribute("board", board);
+		model.addAttribute("fileList", fileList);
 		return "/board/detail";
 	}
 	

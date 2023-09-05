@@ -31,4 +31,7 @@
 		insert into file(fi_name, fi_ori_name, fi_bo_num)
 		values(#{file.fi_name}, #{file.fi_ori_name}, #{file.fi_bo_num})
 	</insert>
+	<select id="selectFileList" resultType="kr.kh.study.vo.FileVO">
+		select * from file where fi_bo_num = #{bo_num}
+	</select>
 </mapper>

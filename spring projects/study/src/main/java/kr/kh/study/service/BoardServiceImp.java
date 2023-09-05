@@ -122,4 +122,11 @@ public class BoardServiceImp implements BoardService{
 		return res;
 	}
 
+	@Override
+	public List<FileVO> getFileList(Integer bo_num) {
+		if(bo_num == null) {
+			return null;
+		}
+		return boardDao.selectFileList(bo_num);
+	}
 }
