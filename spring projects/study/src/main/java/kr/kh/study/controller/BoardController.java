@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.kh.study.pagination.Criteria;
+import kr.kh.study.pagination.PageMaker;
 import kr.kh.study.service.BoardService;
 import kr.kh.study.vo.BoardVO;
 import kr.kh.study.vo.FileVO;
@@ -23,9 +25,14 @@ public class BoardController {
 	private BoardService boardService;
 
 	@GetMapping("/board/list")
-	public String boardList(Model model) {
-		List<BoardVO> list = boardService.getBoardList();
+	public String boardList(Model model, Criteria cri) {
+		cri.setPerPageNum(2);
+		List<BoardVO> list = boardService.getBoardList(cri);
+		int totalCount = boardService.getBoardtotalCount();
+		
+		PageMaker pm = new PageMaker(3, cri, totalCount);
 		model.addAttribute("list", list);
+		model.addAttribute("pm", pm);
 		return "/board/list";
 	}
 	
