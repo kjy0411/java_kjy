@@ -86,7 +86,7 @@ public class BoardServiceImp implements BoardService{
 	}
 
 	@Override
-	public BoardVO getBoardList(Integer bo_num) {
+	public BoardVO getBoard(Integer bo_num) {
 		if(bo_num == null) {
 			return null;
 		}
@@ -179,6 +179,7 @@ public class BoardServiceImp implements BoardService{
 		//기존 추천 정보를 가져옴(게시글 번호와 아이디)
 		LikeVO dbLikeVo = boardDao.selectLike(likeVo.getLi_bo_num(), likeVo.getLi_me_id());
 		
+		
 		//기존 추천 정보가 없으면
 		if(dbLikeVo == null) {
 			//추가
@@ -191,6 +192,15 @@ public class BoardServiceImp implements BoardService{
 			//업데이트
 			boardDao.updateLike(likeVo);
 		}		
+		boardDao.updateBoardLike(likeVo.getLi_bo_num());
 		return likeVo.getLi_state();
+	}
+
+	@Override
+	public LikeVO getBoardLike(Integer bo_num, MemberVO user) {
+		if(bo_num == null || user == null) {
+			return null;
+		}
+		return boardDao.selectLike(bo_num, user.getMe_id());
 	}
 }

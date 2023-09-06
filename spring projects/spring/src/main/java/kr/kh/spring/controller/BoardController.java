@@ -62,16 +62,19 @@ public class BoardController {
 		return "message";
 	}
 	@GetMapping("/detail")
-	public String deatil(Model model, Integer bo_num, Criteria cri) {
+	public String deatil(Model model, Integer bo_num, Criteria cri, HttpSession session) {
 		boardService.updateViews(bo_num);
-		BoardVO board = boardService.getBoardList(bo_num);
+		BoardVO board = boardService.getBoard(bo_num);
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		LikeVO like = boardService.getBoardLike(bo_num, user);
 		model.addAttribute("board", board);
 		model.addAttribute("cri", cri);
+		model.addAttribute("like", like);
 		return "/board/detail";
 	}
 	@GetMapping("/update")
 	public String update(Model model, Integer bo_num, HttpSession session) {
-		BoardVO board = boardService.getBoardList(bo_num);
+		BoardVO board = boardService.getBoard(bo_num);
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		if(user == null || board == null || !user.getMe_id().equals(board.getBo_me_id())) {
 			Message msg = new Message("/board/list", "잘못된 접근입니다.");
@@ -112,7 +115,9 @@ public class BoardController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		//추천 :1, 비추천 : -1, 취소 : 0
 		int res = boardService.like(likeVo);
+		BoardVO board = boardService.getBoard(likeVo.getLi_bo_num());
 		map.put("res", res);
+		map.put("board", board);
 		return map;
 	}
 }

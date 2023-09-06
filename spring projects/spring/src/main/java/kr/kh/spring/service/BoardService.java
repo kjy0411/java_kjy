@@ -17,7 +17,7 @@ public interface BoardService {
 
 	int getTotalCount(Criteria cri);
 
-	BoardVO getBoardList(Integer bo_num);
+	BoardVO getBoard(Integer bo_num);
 
 	void updateViews(Integer bo_num);
 
@@ -26,5 +26,7 @@ public interface BoardService {
 	boolean deleteBoard(Integer bo_num, MemberVO user);
 
 	int like(LikeVO likeVo);
+
+	LikeVO getBoardLike(Integer bo_num, MemberVO user);
 
 }
