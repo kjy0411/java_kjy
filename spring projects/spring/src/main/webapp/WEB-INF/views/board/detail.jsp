@@ -61,7 +61,7 @@
 	<div class="comment-contaier">
 		<!-- 댓글 입력창 -->
 		<div class="input-group mt-5">
-	    	<textarea class="form-control" placeholder="댓글"></textarea>
+	    	<textarea class="form-control" placeholder="댓글" name="co_contents"></textarea>
 		    <div class="input-group-append">
 		    	<button class="btn btn-outline-success btn-comment-insert">등록</button>
 		    </div>
@@ -69,6 +69,7 @@
 		<!-- 댓글 목록창 -->
 		
 		<!-- 댓글 페이지네이션 -->
+		
 	</div>
 	
 	<!-- 추천 기능 자바스크립트 -->
@@ -141,13 +142,22 @@
 				return;
 			}
 			let co_contents = $('[name=co_contents]').val();
-			let data = {
-					co_contents : '',
+			if(co_contents == ''){
+				alert('내용을 입력하세요.');
+				return;
+			}
+			let comment = {
+					co_contents : co_contents,
 					co_bo_num : '${board.bo_num}',
 					co_me_id : '${user.me_id}'
 			}
-			ajaxJsonToJson(false, 'post', '/comment/insert', data, (data)=>{
-				console.log(data);
+			ajaxJsonToJson(false, 'post', '/comment/insert', comment, (data)=>{
+				if(data.res){
+					alert('댓글을 등록했습니다.');
+					$('[name=co_contents]').val('');
+				}else{
+					alert('댓글을 등록하지 못했습니다.');
+				}
 			});
 		});
 	</script>
