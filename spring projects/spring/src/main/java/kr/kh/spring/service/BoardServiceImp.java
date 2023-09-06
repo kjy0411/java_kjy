@@ -26,7 +26,7 @@ public class BoardServiceImp implements BoardService{
 
 	@Override
 	public boolean insertBoard(BoardVO board, MemberVO user, MultipartFile[] files) {
-		if(board == null || user.getMe_id() == null) {
+		if(user == null || user.getMe_id() == null) {
 			return false;
 		}
 		if(board == null || board.getBo_title() == null || board.getBo_title().length() == 0) {
@@ -40,13 +40,9 @@ public class BoardServiceImp implements BoardService{
 		if(files == null || files.length == 0) {
 			return true;
 		}
-		for(MultipartFile file : files) {
-//			uploadFileAddInsert(file);
-			if(file != null) {
-				//첨부파일을 서버에 업로드 하고, DB에 저장
-				uploadFileAndInsert(files, board.getBo_num());		
-			}
-		}
+			//첨부파일을 서버에 업로드 하고, DB에 저장
+		uploadFileAndInsert(files, board.getBo_num());	
+		
 		return true;
 	}
 

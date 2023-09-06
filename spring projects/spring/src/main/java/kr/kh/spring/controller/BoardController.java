@@ -52,10 +52,6 @@ public class BoardController {
 	
 	@PostMapping("/insert")
 	public String insertPost(BoardVO board, HttpSession session, Model model, MultipartFile[] files2) {
-		System.out.println(files2);
-		for(MultipartFile file : files2) {
-			System.out.println(file);
-		}
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		Message msg;
 		if(boardService.insertBoard(board, user, files2)) {
