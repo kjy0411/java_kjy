@@ -57,6 +57,21 @@
 		<a href="<c:url value='/board/update?bo_num=${board.bo_num}'/>" class="btn btn-outline-warning">수정</a>
 		<a href="<c:url value='/board/delete?bo_num=${board.bo_num}'/>" class="btn btn-outline-danger">삭제</a>
 	</c:if>
+	
+	<div class="comment-contaier">
+		<!-- 댓글 입력창 -->
+		<div class="input-group mt-5">
+	    	<textarea class="form-control" placeholder="댓글"></textarea>
+		    <div class="input-group-append">
+		    	<button class="btn btn-outline-success btn-comment-insert">등록</button>
+		    </div>
+		</div>
+		<!-- 댓글 목록창 -->
+		
+		<!-- 댓글 페이지네이션 -->
+	</div>
+	
+	<!-- 추천 기능 자바스크립트 -->
 	<script type="text/javascript">
 		//추천/비추천 버튼
 		$('.btn-like').click(function() {
@@ -105,7 +120,36 @@
 				$downBtn.addClass('btn-danger').removeClass('btn-outline-danger');
 			}
 		}
-		
+	</script>
+	
+	<!-- 댓글 기능 자바 스크립트 -->
+	<script type="text/javascript">
+		$('[name=co_contents]').focus(function() {
+			if('${user.me_id}' == ''){
+				if(confirm('댓글을 작성하려면 로그인해야합니다. 로그인을 하시겠습니까?')){
+					location.href='<c:url value="/member/login"/>'
+				}
+				$(this).blur();
+				return;
+			}
+		});
+		$('.btn-comment-insert').click(()=>{
+			if('${user.me_id}' == ''){
+				if(confirm('댓글을 작성하려면 로그인해야합니다. 로그인을 하시겠습니까?')){
+					location.href='<c:url value="/member/login"/>'
+				}
+				return;
+			}
+			let co_contents = $('[name=co_contents]').val();
+			let data = {
+					co_contents : '',
+					co_bo_num : '${board.bo_num}',
+					co_me_id : '${user.me_id}'
+			}
+			ajaxJsonToJson(false, 'post', '/comment/insert', data, (data)=>{
+				console.log(data);
+			});
+		});
 	</script>
 </body>
 </html>
