@@ -15,13 +15,20 @@ public class CommentServiceImp implements CommentService{
 	
 	@Autowired
 	CommentDAO commentDao;
+	@Autowired
+	BoardDAO boardDao;
 	
 	@Override
 	public boolean insertComment(CommentVO comment) {
 		if(comment == null || comment.getCo_contents() == null || comment.getCo_me_id() == null) {
 			return false;
 		}
-		return commentDao.insertComment(comment);
+		boolean res = commentDao.insertComment(comment);
+		if(!res) {
+			return false;
+		}
+		boardDao.updateBoardComment(comment.getCo_bo_num());
+		return true;
 	}
 
 	@Override
@@ -43,6 +50,11 @@ public class CommentServiceImp implements CommentService{
 		if(comment == null || comment.getCo_me_id() == null) {
 			return false;
 		}
-		return commentDao.deleteComment(comment);
+		boolean res = commentDao.deleteComment(comment);
+		if(!res) {
+			return false;
+		}
+		boardDao.updateBoardComment(comment.getCo_bo_num());
+		return true;
 	}
 }
