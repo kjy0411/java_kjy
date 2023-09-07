@@ -29,10 +29,10 @@ public class MemberController2 {
 
 	@RequestMapping(value="/member/signup", method=RequestMethod.POST)
 	public String signupPost(MemberVO member, Model model) {
-		Message msg = new Message("/member/signup", "È¸¿ø°¡ÀÔ¿¡ ½ÇÆĞÇß½À´Ï´Ù.");
+		Message msg = new Message("/member/signup", "íšŒì›ê°€ì…ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.");
 		
 		if(memberService.signup(member)) {
-			msg = new Message("/", "È¸¿ø°¡ÀÔ¿¡ ¼º°øÇß½À´Ï´Ù.");
+			msg = new Message("/", "íšŒì›ê°€ì…ì— ì„±ê³µí–ˆìŠµë‹ˆë‹¤.");
 		}
 		model.addAttribute("msg", msg);
 		return "message";
@@ -43,16 +43,21 @@ public class MemberController2 {
 	}
 	@PostMapping(value="/member/login")
 	public String memberLoginPost(MemberVO member, Model model) {
-		Message msg = new Message("/member/login", "·Î±×ÀÎ¿¡ ½ÇÆĞÇß½À´Ï´Ù.");
-		//DB¿¡¼­ ·Î±×ÀÎ Á¤º¸¸¦ ÀÌ¿ëÇÏ¿© °¡Á®¿Â È¸¿øÁ¤º¸. ÀÚµ¿·Î±×ÀÎ ¿©ºÎ°¡ ¾øÀ½
+		Message msg = new Message("/member/login", "ë¡œê·¸ì¸ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.");
+		//DBì—ì„œ ë¡œê·¸ì¸ ì •ë³´ë¥¼ ì´ìš©í•˜ì—¬ ê°€ì ¸ì˜¨ íšŒì›ì •ë³´. ìë™ë¡œê·¸ì¸ ì—¬ë¶€ê°€ ì—†ìŒ
 		MemberVO user = memberService.login(member);
 		if(user != null) {
-			msg = new Message("/", "·Î±×ÀÎ¿¡ ¼º°øÇß½À´Ï´Ù.");
-			//È­¸é¿¡¼­ ¼±ÅÃ/¹Ì¼±ÅÃÇÑ ÀÚµ¿·Î±×ÀÎ ¿©ºÎ¸¦ user¿¡ ÀúÀåÇØ¼­ ÀÎÅÍ¼ÁÅÍ¿¡°Ô Àü´Ş 
+			msg = new Message("/", "ë¡œê·¸ì¸ì— ì„±ê³µí–ˆìŠµë‹ˆë‹¤.");
+			//í™”ë©´ì—ì„œ ì„ íƒ/ë¯¸ì„ íƒí•œ ìë™ë¡œê·¸ì¸ ì—¬ë¶€ë¥¼ userì— ì €ì¥í•´ì„œ ì¸í„°ì…‰í„°ì—ê²Œ ì „ë‹¬ 
 			user.setAutoLogin(member.isAutoLogin());
 		}
+
+		model.addAttribute("test", user);
+		model.addAttribute("test2", msg);
+
 		model.addAttribute("test2", user);
 		model.addAttribute("test3", msg);
+
 		return "message";
 	}
 	@GetMapping("/member/logout")
@@ -64,7 +69,7 @@ public class MemberController2 {
 		memberService.updateMemberSession(user);
 		if(user != null) {
 			session.removeAttribute("user");
-			msg.setMsg("·Î±×¾Æ¿ô¿¡ ¼º°øÇß½À´Ï´Ù.");
+			msg.setMsg("ë¡œê·¸ì•„ì›ƒì— ì„±ê³µí–ˆìŠµë‹ˆë‹¤.");
 		}
 		model.addAttribute("msg", msg);
 		return "message";
