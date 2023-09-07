@@ -68,7 +68,7 @@
 		</div>
 		<!-- 댓글 목록창 -->
 		<div class="comment-list">
-			<div class="border rounded-sm border-danger p-3 mt-3">
+			<div class="border rounded-sm border-danger p-3 mt-3 comment-box">
 				<div class="">작성자아이디</div>
 				<div class="input-group mb-3">
 				    <div class="col-9">
@@ -78,7 +78,7 @@
 				    </div>
 				</div>
 			</div>
-			<div class="border rounded-sm border-danger p-3 mt-3">
+			<div class="border rounded-sm border-danger p-3 mt-3 comment-box">
 				<div class="">작성자아이디</div>
 				<div class="input-group mb-3">
 				    <div class="col-9">
@@ -97,6 +97,7 @@
 		    <li class="page-item"><a class="page-link" href="javascript:void(0);">다음</a></li>
 		</ul>
 	</div>
+	
 	<!-- 추천 기능 자바스크립트 -->
 	<script type="text/javascript">
 		//추천/비추천 버튼
@@ -126,7 +127,7 @@
 						alert('비추천을 취소했습니다.');						
 					}
 				}
-				displayLikeBtn(li_state);
+				diplayLikeBtn(data.res);
 				$('.text-up').text(data.board.bo_up);
 				$('.text-down').text(data.board.bo_down);
 			})
@@ -191,12 +192,58 @@
 				getCommentList(cri);
 			});
 		});
+		
+		$(document).on('click', '.btn-comment-update', function(){
+			revertBox();
+			let commentBox = $(this).parents('.comment-box')
+			changeBox(commentBox);
+		})
+		$(document).on('click', '.btn-update-complete', function(){
+			let co_num = $(this).parents('.comment-box').find('[name=co_num]').val();
+			let co_contents = $(this).parents('.comment-box').find('[name=co_contents]').val();
+			
+			if(co_contents == ''){
+				alert('내용을 입력하세요.');
+				return;
+			}
+			
+			let comment = {
+					co_num : co_num,
+					co_me_id : '${user.me_id}',
+					co_contents : co_contents 
+				}
+			
+			ajaxJsonToJson(false, 'post', './comment/update', comment, (data)=>{
+				if(data.res){
+					alert('댓글을 수정했습니다.')
+				}else{
+					alert('댓글을 수정하지 못했습니다.')
+				}
+				getCommentList(cri);
+			});
+		});
 		let cri = {
 				page : 1,
 				perPageNum : 2
 		}
 		//게시글이 화면에 출력되고 이어서 댓글이 화면에 출력되어야 하기때문에 이벤트 등록 없이 바로 호출
 		getCommentList(cri);
+		
+		
+		function revertBox() {
+			$('[name=co_contents]').remove();
+			$('.btn-update-complete').remove();
+			$('.contents-box').show();
+			$('.btn-group').show();
+		}
+		
+		function changeBox(commentBox){
+			let $contentsBox = commentBox.find('.contents-box');
+			let contents = $contentsBox.text().trim(); 
+			$contentsBox.hide().after('<textarea class="form-control col-9" name="co_contents">'+contents+'</textarea>');
+			let $btnGroup = commentBox.find('.btn-group');
+			$btnGroup.hide().after('<button class="btn btn-outline-success btn-update-complete">수정완료</button>')
+		}
 		
 		//현재 페이지 정보가 주어지면 현재 페이지에 맞는 댓글 리스트를 가져와서 화면에 출력하는 함수
 		function getCommentList(cri) {
@@ -236,18 +283,22 @@
 				let btnStr = '';
 				if('${user.me_id}' == comment.co_me_id){
 					btnStr = `
-						<div>
+						<div class="btn-group">
 							<button class="btn btn-outline-warning btn-comment-update" data-num="\${comment.co_num}">수정</button>
 							<button class="btn btn-outline-danger btn-comment-delete" onclick="deleteComment(\${comment.co_num})">삭제</button>
 						</div>`;
 				}
 				str += `
-					<div class="border rounded-sm border-danger p-3 mt-3">
+					<div class="border rounded-sm border-danger p-3 mt-3 comment-box">
+						<input type="hidden" name="co_num" value="\${comment.co_num}">
 						<div class="">\${comment.co_me_id}</div>
-						<div class="col-9">
-							\${comment.co_contents}
-						</div>
-						<div class="col-3">
+						<div class="input-group mb-3">
+							<div class="col-9 contents-box">
+								\${comment.co_contents}
+							</div>
+							<div class="col-3">
+								작성일
+							</div>
 						</div>
 						\${btnStr}
 					</div>`;
