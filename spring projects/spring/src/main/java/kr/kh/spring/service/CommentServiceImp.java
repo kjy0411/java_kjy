@@ -24,11 +24,11 @@ public class CommentServiceImp implements CommentService{
 	}
 
 	@Override
-	public List<CommentVO> getCommentList(Criteria cri) {
+	public List<CommentVO> getCommentList(Criteria cri, int bo_num) {
 		if(cri == null) {
 			cri = new Criteria();
 		}
 		
-		return commentDao.getCommentList(cri);
+		return commentDao.getCommentList(cri, bo_num);
 	}
 }

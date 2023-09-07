@@ -112,7 +112,6 @@
 				li_state : li_state
 			}
 			ajaxJsonToJson(false, 'post', '/board/like', data, (data)=>{
-				alert(data.res);
 				if(data.res == 1){
 					alert('추천했습니다.');
 				}else if(data.res == -1){
@@ -198,8 +197,11 @@
 		
 		//현재 페이지 정보가 주어지면 현재 페이지에 맞는 댓글 리스트를 가져와서 화면에 출력하는 함수
 		function getCommentList(cri) {
-			ajaxJsonToJson(false, 'post', '/comment/list', cri, (data)=>{
+			ajaxJsonToJson(false, 'post', '/comment/list/${board.bo_num}', cri, (data)=>{
 				let str = '';
+				if(data.list.length == 0){
+					str = '<div class="border rounded-sm border-danger p-3 mt-3">등록된 댓글이 없습니다.</div>';
+				}
 				for(comment of data.list){
 					str += `
 						<div class="border rounded-sm border-danger p-3 mt-3">

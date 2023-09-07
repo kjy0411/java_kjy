@@ -11,6 +11,6 @@ public interface CommentDAO {
 
 	boolean insertComment(@Param("comment")CommentVO comment);
 
-	List<CommentVO> getCommentList(@Param("cri")Criteria cri);
+	List<CommentVO> getCommentList(@Param("cri")Criteria cri, @Param("bo_num")int bo_num);
 
 }

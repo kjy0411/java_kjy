@@ -9,7 +9,8 @@
 	</insert>
 	<select id="getCommentList" resultType="kr.kh.spring.vo.CommentVO">
 		select * from comment
-		order by co_num desc
-		limit #{cri.pageStart}, #{cri.perPageNum}
+			where co_bo_num = #{bo_num}
+			order by co_num desc
+			limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 </mapper>
