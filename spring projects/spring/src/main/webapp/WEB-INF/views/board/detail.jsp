@@ -233,6 +233,14 @@
 				str = '<div class="border rounded-sm border-danger p-3 mt-3">등록된 댓글이 없습니다.</div>';
 			}
 			for(comment of commentList){
+				let btnStr = '';
+				if('${user.me_id}' == comment.co_me_id){
+					btnStr = `
+						<div>
+							<button class="btn btn-outline-warning btn-comment-update" data-num="\${comment.co_num}">수정</button>
+							<button class="btn btn-outline-danger btn-comment-delete" onclick="deleteComment(\${comment.co_num})">삭제</button>
+						</div>`;
+				}
 				str += `
 					<div class="border rounded-sm border-danger p-3 mt-3">
 						<div class="">\${comment.co_me_id}</div>
@@ -241,10 +249,27 @@
 						</div>
 						<div class="col-3">
 						</div>
+						\${btnStr}
 					</div>`;
 			}
 			$(target).html(str);
 		}
+		//댓글을 삭제하는 함수
+		function deleteComment(co_num){
+			let comment = { 
+					co_num : co_num,
+					co_me_id : '${user.me_id}'
+			}
+			ajaxJsonToJson(false,'post','/comment/delete', comment ,(data)=>{
+				if(data.res){
+					alert('댓글을 삭제했습니다.')
+				}else{
+					alert('댓글을 삭제하지 못했습니다.')
+				}
+				cri.page = 1;
+				getCommentList(cri);
+			});
+		}	
 	</script>
 </body>
 </html>

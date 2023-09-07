@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.kh.spring.dao.BoardDAO;
 import kr.kh.spring.dao.CommentDAO;
 import kr.kh.spring.pagination.Criteria;
 import kr.kh.spring.vo.CommentVO;
@@ -14,7 +15,7 @@ public class CommentServiceImp implements CommentService{
 	
 	@Autowired
 	CommentDAO commentDao;
-
+	
 	@Override
 	public boolean insertComment(CommentVO comment) {
 		if(comment == null || comment.getCo_contents() == null || comment.getCo_me_id() == null) {
@@ -35,5 +36,13 @@ public class CommentServiceImp implements CommentService{
 	@Override
 	public int getTotalCount( int bo_num) {
 		return commentDao.selectCommentCount(bo_num);
+	}
+
+	@Override
+	public boolean deleteComment(CommentVO comment) {
+		if(comment == null || comment.getCo_me_id() == null) {
+			return false;
+		}
+		return commentDao.deleteComment(comment);
 	}
 }
