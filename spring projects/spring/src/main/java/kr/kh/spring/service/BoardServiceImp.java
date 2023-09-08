@@ -11,6 +11,7 @@ import kr.kh.spring.controller.BoardController;
 import kr.kh.spring.dao.BoardDAO;
 import kr.kh.spring.pagination.Criteria;
 import kr.kh.spring.util.UploadFileUtils;
+import kr.kh.spring.vo.BoardTypeVO;
 import kr.kh.spring.vo.BoardVO;
 import kr.kh.spring.vo.FileVO;
 import kr.kh.spring.vo.LikeVO;
@@ -198,5 +199,34 @@ public class BoardServiceImp implements BoardService{
 			return null;
 		}
 		return boardDao.selectLike(bo_num, user.getMe_id());
+	}
+
+	@Override
+	public List<BoardTypeVO> getboardTypeList() {
+		return boardDao.selectBoardTypeList();
+	}
+
+	@Override
+	public boolean insertBoardType(BoardTypeVO boardType) {
+		if(boardType == null || boardType.getBt_title() == null || boardType.getBt_authority() == null) {
+			return false;
+		}
+		//게시판명이 중복되는걸 방지하기 위해
+		try {
+			boolean res = boardDao.insertBoardType(boardType);
+			if(!res) {
+				return false;
+			}
+		} catch (Exception e) {
+			return false;
+		}
+		switch (boardType.getBt_authority()) {
+		case "USER":
+			boardDao.insertBoardAuthority(boardType.getBt_num(), "USER");
+		case "ADMIN":
+			boardDao.insertBoardAuthority(boardType.getBt_num(), "ADMIN");
+			break;
+		}
+		return true;
 	}
 }
