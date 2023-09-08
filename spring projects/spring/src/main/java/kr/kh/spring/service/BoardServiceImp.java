@@ -251,4 +251,19 @@ public class BoardServiceImp implements BoardService{
 		//게시판 타입을 삭제
 		return boardDao.deleteBoardType(boardType.getBt_num());
 	}
+
+	
+	@Override
+	public boolean updateBoardType(BoardTypeVO boardType) {
+		if(boardType == null || boardType.getBt_title() == null) {
+			return false;
+		}
+		System.out.println(boardType);
+		//DB상에서 bt_title을 unique 설정을 하여 이름이 중복되면 오류가 발생하는것을 이용
+		try {
+			return boardDao.updateBoardType(boardType);
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }
