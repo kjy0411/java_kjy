@@ -6,8 +6,9 @@ import lombok.Data;
 public class Criteria {
 	private int page;		//현재 페이지
 	private int perPageNum;	//한 페이지에서 컨텐츠 개수
-	String type;	//검색 타입
-	String search;	//검색어
+	String type;		//검색 타입
+	String search;		//검색어
+	private int bt_num;	//게시판타입번호
 	
 	public Criteria() {
 		page = 1;
@@ -28,10 +29,10 @@ public class Criteria {
 	}
 	//주어진 페이지정보를 사용
 	public String getUrl(int page) {
-		return "?page=" + page + "&type=" + type + "&search=" + search;	//?변수명=값&변수명=값
+		return "?page=" + page + "&type=" + type + "&search=" + search + "&bt_num=" + bt_num;	//?변수명=값&변수명=값
 	}
 	//현재 페이지정보를 사용
 	public String getCurrentUrl() {
-		return "?page=" + page + "&type=" + type + "&search=" + search;
+		return "?page=" + page + "&type=" + type + "&search=" + search + "&bt_num=" + bt_num;
 	}
 }

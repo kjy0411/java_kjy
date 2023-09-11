@@ -30,7 +30,7 @@ public interface BoardService {
 
 	LikeVO getBoardLike(Integer bo_num, MemberVO user);
 
-	List<BoardTypeVO> getboardTypeList();
+	List<BoardTypeVO> getBoardTypeList();
 
 	boolean insertBoardType(BoardTypeVO boardType);
 

@@ -41,11 +41,16 @@
 		<button class="btn btn-outline-success col-12">등록하기</button>
 	</form>
 	<script>
-      $('#summernote').summernote({
-        placeholder: '내용을 입력하세요',
-        tabsize: 2,
-        height: 300
-      });
+	alert(${typeList.size()});
+	if(${typeList.size()} == 0){
+		alert('작성 가능한 게시판이 없습니다.');
+		location.href = '<c:url value="/board/list"/>'
+	}
+	$('#summernote').summernote({
+		placeholder: '내용을 입력하세요',
+		tabsize: 2,
+		height: 300
+	});
     </script>
 </body>
 </html>

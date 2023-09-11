@@ -202,7 +202,7 @@ public class BoardServiceImp implements BoardService{
 	}
 
 	@Override
-	public List<BoardTypeVO> getboardTypeList() {
+	public List<BoardTypeVO> getBoardTypeList() {
 		return boardDao.selectBoardTypeList();
 	}
 
@@ -274,4 +274,5 @@ public class BoardServiceImp implements BoardService{
 		}
 		return boardDao.selectBoardTypeListByRole(user.getMe_role());
 	}
+
 }

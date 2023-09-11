@@ -23,7 +23,7 @@ public class AdminController {
 	
 	@GetMapping("/admin/board/type")
 	public String boardType(Model model) {
-		List<BoardTypeVO> list = boardService.getboardTypeList();
+		List<BoardTypeVO> list = boardService.getBoardTypeList();
 		model.addAttribute("list", list);
 		return "/admin/boardType";
 	}
