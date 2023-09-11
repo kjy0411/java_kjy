@@ -73,7 +73,8 @@ public class MemberController {
 		String url = "/";
 		HttpSession session = request.getSession();
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		
+		user.setMe_session_limit(null);
+		memberService.updateMemberSession(user);
 		if(user != null) {
 			session.removeAttribute("user");
 			msg = "로그아웃 성공!";
