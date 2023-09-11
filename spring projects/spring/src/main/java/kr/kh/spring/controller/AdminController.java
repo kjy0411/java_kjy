@@ -52,7 +52,6 @@ public class AdminController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean res = boardService.updateBoardType(boardType);
 		map.put("res", res);
-		System.out.println(res);
 		return map;
 	}
 }

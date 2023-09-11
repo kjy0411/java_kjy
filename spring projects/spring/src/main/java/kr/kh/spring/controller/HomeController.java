@@ -34,7 +34,6 @@ public class HomeController {
 	@PostMapping("/ajax/test")
 	public Map<String, Object> ajaxTest(@RequestBody MemberVO member){
 		Map<String, Object> map = new HashMap<String, Object>();
-		System.out.println(member);
 		map.put("name", "ȫ�浿");
 		return map;
 	}
