@@ -58,11 +58,23 @@ public class MemberServiceImp implements MemberService{
 		if(user == null) {
 			return null;
 		}
-		if(!passwordEncoder.matches(member.getMe_pw(), user.getMe_pw())){
+		if(passwordEncoder.matches(member.getMe_pw(), user.getMe_pw())){
 			return user;
 		}
 		return null;
 	}
 
+	@Override
+	public void updateMemberSession(MemberVO user) {
+		if(user == null || user.getMe_id() == null) {
+			return;
+		}
+		memberDao.updateMemberSession(user);
+	}
+
+	@Override
+	public MemberVO getMemberBySession(String me_session_id) {
+		return memberDao.selectMemberBySession(me_session_id);
+	}
 
 }

@@ -8,9 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.mysql.cj.Session;
 
 import kr.kh.study.service.MemberService;
 import kr.kh.study.vo.MemberVO;
@@ -57,6 +54,7 @@ public class MemberController {
 		if(user != null) {
 			msg = "로그인 성공!";
 			url = "/";
+			user.setAutoLogin(member.isAutoLogin());
 		}else {
 			msg = "로그인 실패!";
 			url = "/member/login";
