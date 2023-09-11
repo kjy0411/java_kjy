@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.kh.study.pagination.Criteria;
 import kr.kh.study.vo.BoardVO;
+import kr.kh.study.vo.CommentVO;
 import kr.kh.study.vo.FileVO;
 
 public interface BoardDAO {

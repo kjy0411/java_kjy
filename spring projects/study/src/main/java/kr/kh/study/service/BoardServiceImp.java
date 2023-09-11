@@ -12,6 +12,7 @@ import kr.kh.study.dao.BoardDAO;
 import kr.kh.study.pagination.Criteria;
 import kr.kh.study.util.UploadFileUtils;
 import kr.kh.study.vo.BoardVO;
+import kr.kh.study.vo.CommentVO;
 import kr.kh.study.vo.FileVO;
 import kr.kh.study.vo.MemberVO;
 

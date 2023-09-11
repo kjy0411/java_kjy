@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.study.pagination.Criteria;
 import kr.kh.study.vo.BoardVO;
+import kr.kh.study.vo.CommentVO;
 import kr.kh.study.vo.FileVO;
 import kr.kh.study.vo.MemberVO;
 

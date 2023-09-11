@@ -15,6 +15,7 @@ import kr.kh.study.pagination.Criteria;
 import kr.kh.study.pagination.PageMaker;
 import kr.kh.study.service.BoardService;
 import kr.kh.study.vo.BoardVO;
+import kr.kh.study.vo.CommentVO;
 import kr.kh.study.vo.FileVO;
 import kr.kh.study.vo.MemberVO;
 
@@ -29,7 +30,6 @@ public class BoardController {
 		cri.setPerPageNum(2);
 		List<BoardVO> list = boardService.getBoardList(cri);
 		int totalCount = boardService.getBoardtotalCount();
-		
 		PageMaker pm = new PageMaker(3, cri, totalCount);
 		model.addAttribute("list", list);
 		model.addAttribute("pm", pm);
