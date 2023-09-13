@@ -70,16 +70,18 @@ public class CommentServiceImp implements  CommentService{
 		if(user == null || user.getMe_id() == null) {
 			return false;
 		}
-		if(comment == null || comment.getCo_num() == 0 || comment.getCo_contents() == "") {
+		if(comment == null 
+				|| comment.getCo_num() == 0 
+				|| comment.getCo_contents()==null 
+				|| comment.getCo_contents().trim().length() == 0){
 			return false;
 		}
+		//댓글 유무 확인 및 작성자 확인
 		CommentVO dbComment = commentDao.selectCommetn(comment.getCo_num());
 		if(dbComment == null || !dbComment.getCo_me_id().equals(user.getMe_id())) {
 			return false;
 		}
-		boolean res =commentDao.updateComment(comment);
-		
-		return res;
+		return commentDao.updateComment(comment);
 	}
 
 }
