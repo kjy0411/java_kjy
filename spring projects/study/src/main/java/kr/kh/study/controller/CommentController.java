@@ -48,19 +48,7 @@ public class CommentController {
 	public Map<String, Object> delete(@RequestBody CommentVO comment, HttpSession session){
 		Map<String, Object> map = new HashMap<String, Object>();
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		String msg = "삭제 성공";
-		boolean res = false;
-		if(user == null || !user.getMe_id().equals(comment.getCo_me_id())) {
-			msg = "삭제 권한이 없습니다.";
-			map.put("msg", msg);
-			map.put("res", res);
-			return map;
-		}
-		res = commentService.deleteComment(comment);
-		if(!res) {
-			msg = "삭제 실패";
-		}
-		map.put("msg", msg);
+		boolean res = commentService.deleteComment(comment, user);
 		map.put("res", res);
 		return map;
 	}

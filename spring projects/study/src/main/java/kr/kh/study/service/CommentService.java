@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.kh.study.pagination.Criteria;
 import kr.kh.study.vo.CommentVO;
+import kr.kh.study.vo.MemberVO;
 
 public interface CommentService {
 
@@ -13,6 +14,6 @@ public interface CommentService {
 
 	int getTotalCount(int bo_num);
 
-	boolean deleteComment(CommentVO comment);
+	boolean deleteComment(CommentVO comment, MemberVO user);
 	
 }

@@ -92,9 +92,7 @@
 		
 		$(document).on('click', '.btn-del', function() {
 			let comment = {
-					co_num : $(this).data('num'),
-					co_me_id : $(this).siblings('.comment-writer').text(),
-					co_bo_num : ${board.bo_num}
+					co_num : $(this).data('num')
 			}
 			//ajax
 			$.ajax({
@@ -106,10 +104,10 @@
 				dataType : 'json',
 				success : function(data) {
 					if(data.res){
-						alert(data.msg);
-						getCommentList(cri)
+						alert("댓글 삭제 성공");
+						getCommentList(cri);
 					}else{
-						alert(data.msg);
+						alert("댓글 삭제 실패");
 					}
 				}
 			});

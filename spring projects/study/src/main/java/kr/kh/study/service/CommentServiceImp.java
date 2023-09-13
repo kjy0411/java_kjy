@@ -9,6 +9,7 @@ import kr.kh.study.dao.BoardDAO;
 import kr.kh.study.dao.CommentDAO;
 import kr.kh.study.pagination.Criteria;
 import kr.kh.study.vo.CommentVO;
+import kr.kh.study.vo.MemberVO;
 
 
 @Service
@@ -48,14 +49,19 @@ public class CommentServiceImp implements  CommentService{
 	}
 
 	@Override
-	public boolean deleteComment(CommentVO comment) {
-		if(comment == null || (Integer)comment.getCo_num() == null || (Integer)comment.getCo_bo_num() == null) {
+	public boolean deleteComment(CommentVO comment, MemberVO user) {
+		if(user == null || user.getMe_id() == null) {
+			return false;
+		}
+		if(comment == null || comment.getCo_num() == 0) {
+			return false;
+		}
+		CommentVO dbComment = commentDao.selectCommetn(comment.getCo_num());
+		if(dbComment == null || !dbComment.getCo_me_id().equals(user.getMe_id())) {
 			return false;
 		}
 		boolean res = commentDao.deleteComment(comment.getCo_num());
-		if(res) {
-			boardDao.updateBoardComment(comment.getCo_bo_num());
-		}
+		boardDao.updateBoardComment(comment.getCo_bo_num());
 		return res;
 	}
 
