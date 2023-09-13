@@ -89,7 +89,7 @@
 				}
 			})
 		});
-		
+		//댓글 삭제
 		$(document).on('click', '.btn-del', function() {
 			let comment = {
 					co_num : $(this).data('num')
@@ -112,7 +112,39 @@
 				}
 			});
 		})
-		
+		//댓글 수정 버튼
+		let num = null;
+		$(document).on('click', '.btn-update', function() {
+			num = $(this).data('num');
+			let str = `
+				<textarea rows="" cols="" placeholder="수정 내용" id="updateComment"></textarea>
+				<button id="btnCommentUpdate" data-num="\${comment.co_num}">수정 완료</button>
+			`;
+			$(this).parents('.comment-item').html(str);
+		})
+		//수정 완료 기능
+		$(document).on('click', '#btnCommentUpdate', function() {
+				let comment = {
+						co_num : num,
+						co_contents : $(this).siblings('#updateComment').val()
+				}
+				$.ajax({
+					async : false,
+					method : 'post',
+					url : '<c:url value="/comment/update"/>',
+					data : JSON.stringify(comment),
+					contentType : 'application/json; charset=utf-8',
+					dataType : 'json',
+					success : function(data) {
+						if(data.res){
+							alert("댓글 수정 성공")
+							getCommentList(cri);
+						}else{
+							alert("댓글 수정 실패")							
+						}
+					}
+				});
+			})
 		let cri = {
 				page : 1
 		}
@@ -132,7 +164,7 @@
 						let btnStr = '';
 						if('${user.me_id}' == comment.co_me_id){
 							btnStr += `
-								<button>수정</button>
+								<button class="btn-update" data-num="\${comment.co_num}">수정</button>
 								<button class="btn-del" data-num="\${comment.co_num}">삭제</button>
 							`;
 						}

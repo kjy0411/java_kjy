@@ -15,5 +15,7 @@ public interface CommentService {
 	int getTotalCount(int bo_num);
 
 	boolean deleteComment(CommentVO comment, MemberVO user);
+
+	boolean updateComment(CommentVO comment, MemberVO user);
 	
 }

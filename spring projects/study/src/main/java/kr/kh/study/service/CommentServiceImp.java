@@ -65,4 +65,21 @@ public class CommentServiceImp implements  CommentService{
 		return res;
 	}
 
+	@Override
+	public boolean updateComment(CommentVO comment, MemberVO user) {
+		if(user == null || user.getMe_id() == null) {
+			return false;
+		}
+		if(comment == null || comment.getCo_num() == 0 || comment.getCo_contents() == "") {
+			return false;
+		}
+		CommentVO dbComment = commentDao.selectCommetn(comment.getCo_num());
+		if(dbComment == null || !dbComment.getCo_me_id().equals(user.getMe_id())) {
+			return false;
+		}
+		boolean res =commentDao.updateComment(comment);
+		
+		return res;
+	}
+
 }
