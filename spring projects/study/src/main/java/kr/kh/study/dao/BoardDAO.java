@@ -33,4 +33,6 @@ public interface BoardDAO {
 
 	int selectBoardTotalCount();
 
+	void updateBoardComment(@Param("bo_num")int co_bo_num);
+
 }

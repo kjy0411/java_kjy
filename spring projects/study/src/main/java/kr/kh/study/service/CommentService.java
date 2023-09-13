@@ -12,5 +12,7 @@ public interface CommentService {
 	List<CommentVO> getCommetnList(int bo_num, Criteria cri);
 
 	int getTotalCount(int bo_num);
+
+	boolean deleteComment(CommentVO comment);
 	
 }

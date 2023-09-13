@@ -90,10 +90,36 @@
 			})
 		});
 		
+		$(document).on('click', '.btn-del', function() {
+			let comment = {
+					co_num : $(this).data('num'),
+					co_me_id : $(this).siblings('.comment-writer').text(),
+					co_bo_num : ${board.bo_num}
+			}
+			//ajax
+			$.ajax({
+				async : false,
+				method : 'post',
+				url : '<c:url value="/comment/delete/"/>',
+				data : JSON.stringify(comment),
+				contentType : 'application/json; charset=utf-8',
+				dataType : 'json',
+				success : function(data) {
+					if(data.res){
+						alert(data.msg);
+						getCommentList(cri)
+					}else{
+						alert(data.msg);
+					}
+				}
+			});
+		})
+		
 		let cri = {
 				page : 1
 		}
 		getCommentList(cri);
+		
 		function getCommentList(cri) {
 			$.ajax({
 				async : false,
@@ -108,9 +134,9 @@
 						str += `
 						<li class="comment-item">
 							<span class="comment-contents">\${comment.co_contents}</span>
-							<span class="comment-writet">\${comment.co_me_id}</span>
+							<span class="comment-writer">\${comment.co_me_id}</span>
 							<button>수정</button>
-							<button>삭제</button>
+							<button class="btn-del" data-num="\${comment.co_num}">삭제</button>
 						</li>`;
 					}
 					$('.comment-list').html(str);
@@ -132,7 +158,7 @@
 					$('.pagination').html(str);
 					console.log(pm);
 				}
-			})
+			});
 		}
 		function changePage(page) {
 			cri.page = page;
