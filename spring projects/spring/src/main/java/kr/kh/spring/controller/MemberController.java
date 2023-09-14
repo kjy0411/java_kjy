@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.spring.service.MemberService;
 import kr.kh.spring.util.Message;
+import kr.kh.spring.vo.BoardVO;
 import kr.kh.spring.vo.MemberVO;
 
 @Controller
@@ -68,5 +71,11 @@ public class MemberController {
 		}
 		model.addAttribute("msg", msg);
 		return "message";
+	}
+	@ResponseBody
+	@PostMapping("/member/check/id")
+	public Object checkID(@RequestParam("id")String id){
+		
+		return memberService.checkID(id);
 	}
 }

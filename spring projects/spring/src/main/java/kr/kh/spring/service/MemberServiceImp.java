@@ -110,4 +110,10 @@ public class MemberServiceImp implements MemberService {
 		return false;
 	}
 
+	@Override
+	public Object checkID(String id) {
+		return memberDao.selectMember(id) == null;
+	}
+
+
 }
