@@ -15,8 +15,8 @@
 	<form action="<c:url value='/member/signup'/>" method="post">
 		<div class="form-group">
 			<label>아이디</label>
+			<label id="check-id-error" class="error"></label>
 			<input type="text" class="form-control" name="me_id">
-			<button class="btn btn-outline-success col-12 btn-check" id="btn-check" type="button">아이디 중복 검사</button>
 		</div>
 		<div class="form-group">
 			<label>비번</label>
@@ -34,18 +34,25 @@
 	</form>
 	
 	<script type="text/javascript">
-	$('.btn-check').click(function(){
+	let flag = false;
+	$('[name=me_id]').keyup(function(){
+		flag = false;
+		let id = $(this).val();
+		if(!/^[a-zA-Z]\w{5,19}$/.test(id)){
+			return;
+		}
 		$.ajax({
 			async : false, 
 			type : 'post', 
 			url : '<c:url value="/member/check/id"/>', 
-			data : { id : $('[name=me_id]').val()}, 
+			data : { id : id}, 
 			success : function(data){
+				console.log(data);
 				if(data){
-					alert("사용 가능한 ID입니다");
+					$('#check-id-error').text('사용 가능한 아이디입니다.');
 					flag = true;
 				}else{
-					alert("이미 사용중인 ID입니다");					
+					$('#check-id-error').text('이미 사용중인 ID입니다');
 				}
 			}
 		});
