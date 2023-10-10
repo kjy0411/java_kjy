@@ -5,13 +5,16 @@ function Main3() {
   let [id, setId] = useState('');
   let [pw, setPw] = useState('');
   const location = useLocation();
+  //loaction.state에 전송할 데이터가 있으면
   if(location.state != null){
+    //state에 전송한 id와 pw를 가져옴
     let tmpId = location.state.id;
     let tmpPw = location.state.pw;
-    if(location.state != null){
-      setId(tmpId);
-      setPw(tmpPw);
-    }
+    //가져온 정보를 state의 setter를 이용해 값을 수정
+    setId(tmpId);
+    setPw(tmpPw);
+    //랜더링이 됐을 때 이전 값이 남아 있어서 랜더링이 무한반복되는 현상을 없애기 위해
+    //사용한 loaction의 state를 null로 처리
     location.state = null;
   }
   return (
