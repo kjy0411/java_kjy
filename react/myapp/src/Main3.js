@@ -12,8 +12,8 @@ function Main3() {
       setId(tmpId);
       setPw(tmpPw);
     }
+    location.state = null;
   }
-  location.state = null;
   return (
     <main>
       <h1>메인3</h1>
