@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+}
+.menu-list{
+  list-style: none;
+  margin: 0; padding: 10px 0;
+  display: flex;
+  justify-content: space-around;
+}
+.menu-link{
+  color: black;
+}
+.page-title{
+  text-align: center;
+}
+.list-table{
+  width: 100%; text-align: center; padding: 10px;
+}
+.insert-box{
+  position: absolute; right: calc((100% - 177px) / 2);
+  text-align: center;
+}
